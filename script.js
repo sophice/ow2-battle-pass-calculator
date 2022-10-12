@@ -202,6 +202,32 @@ class OverwatchCalculator {
         return (2000 / weekly) * 7;
     }
 
+    static save() {
+        localStorage.setItem('current_tier', this.currentTier().toString());
+        localStorage.setItem('current_tier_xp', this.currentTierXp().toString());
+        localStorage.setItem('expected_weeklies', this.expectedWeeklies().toString());
+        localStorage.setItem('expected_play_days', this.expectedPlayDays().toString());
+        localStorage.setItem('expected_dailies', this.expectedDailies().toString());
+        localStorage.setItem('expected_daily_matches', this.expectedDailyMatches().toString());
+        localStorage.setItem('expected_match_xp', this.expectedMatchXp().toString());
+    }
+
+    static loadKey(key, fallback = '') {
+        let result = localStorage.getItem(key);
+        if (result === null) return fallback;
+        return result;
+    }
+
+    static load() {
+        document.getElementsByName('current_tier')[0].value = this.loadKey('current_tier', 0);
+        document.getElementsByName('current_tier_xp')[0].value = this.loadKey('current_tier_xp', 0);
+        document.getElementsByName('expected_weeklies')[0].value = this.loadKey('expected_weeklies', 9);
+        document.getElementsByName('expected_play_days')[0].value = this.loadKey('expected_play_days', 5);
+        document.getElementsByName('expected_dailies')[0].value = this.loadKey('expected_dailies', 3);
+        document.getElementsByName('expected_daily_matches')[0].value = this.loadKey('expected_daily_matches', 3);
+        document.getElementsByName('expected_match_xp')[0].value = this.loadKey('expected_match_xp', 1000);
+    }
+
     static update() {
         //progress
         document.getElementById('progress_days').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}).format(this.currentDay()) + ' days';
@@ -261,7 +287,10 @@ class OverwatchCalculator {
         //days per legendary
         //TODO: this is calculating wrong.... 9 and 10 for example should take just as long but they aren't
         document.getElementById('days_per_legendary').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}).format(Math.ceil(this.daysPerLegendary())) + ' days';
+
+        this.save();
     }
 }
 
+OverwatchCalculator.load();
 OverwatchCalculator.update();
