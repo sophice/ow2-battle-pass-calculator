@@ -228,6 +228,17 @@ class OverwatchCalculator {
         document.getElementsByName('expected_match_xp')[0].value = this.loadKey('expected_match_xp', 1000);
     }
 
+    static reset() {
+        document.getElementsByName('current_tier')[0].value = '0';
+        document.getElementsByName('current_tier_xp')[0].value = '0';
+        document.getElementsByName('expected_weeklies')[0].value = '9';
+        document.getElementsByName('expected_play_days')[0].value = '5';
+        document.getElementsByName('expected_dailies')[0].value = '3';
+        document.getElementsByName('expected_daily_matches')[0].value = '3';
+        document.getElementsByName('expected_match_xp')[0].value = '1000';
+        this.update();
+    }
+
     static update() {
         //progress
         document.getElementById('progress_days').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}).format(this.currentDay()) + ' days';
