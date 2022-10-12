@@ -19,7 +19,7 @@ Access the calculator here: https://sophice.github.io/ow2-battle-pass-calculator
 
 * Cool Overwatch font
 * Cool Overwatch orange
-* Saving your inputs so you don't have to re-enter it every time
+* Saving your inputs so you don't have to keep re-entering them
 
 ## Contribute
 
