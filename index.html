@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Overwatch 2 Battle Pass Calculator</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+</head>
+<body style="background-color: #283244;">
+
+<h1>Overwatch 2 Battle Pass Calculator</h1>
+
+<label>What is your current battle pass tier?
+    <input type="text" name="current_tier" value="0" onkeyup="OverwatchCalculator.update();"/> (max 80)</label><br/>
+<label>How much XP have you earned towards the current tier?
+    <input type="text" name="current_tier_xp" value="0" onkeyup="OverwatchCalculator.update();"/> (max 10,000)</label><br/>
+<label>How many days per week you plan to play?
+    <input type="text" name="expected_play_days" value="5" onkeyup="OverwatchCalculator.update();"/></label><br/>
+<label>On days that you play, how many matches do you complete, on average?
+    <input type="text" name="expected_daily_matches" value="3" onkeyup="OverwatchCalculator.update();"/></label><br/>
+<label>How may dailies do you plan to do each day?
+    <input type="text" name="expected_dailies" value="3" onkeyup="OverwatchCalculator.update();"/></label><br/>
+<label>How many weeklies do you plan to do each week?
+    <input type="text" name="expected_weeklies" value="5" onkeyup="OverwatchCalculator.update();"/></label><br/>
+<label>What is your average match XP?
+    <input type="text" name="expected_match_xp" value="1000" onkeyup="OverwatchCalculator.update();"/></label><br/>
+<br/>
+<input type="submit" name="Update" value="Update" onclick="OverwatchCalculator.update()"/>
+
+<h1>What's the grind?</h1>
+
+<span title="Your current progress in this season's battle pass">
+    Progress:
+    <span class="highlight" id="progress_days">0 days</span>,
+    <span class="highlight" id="progress_tiers">0 tiers</span>,
+    <span class="highlight" id="progress_xp">0 XP</span>,
+    <span class="highlight" id="progress_percent">0%</span>
+</span>
+<br/>
+<span title="How much work you have left to do to complete this season's battle pass">
+    Remaining:
+    <span class="highlight" id="remaining_days">0 days</span>,
+    <span class="highlight" id="remaining_tiers">0 tiers</span>,
+    <span class="highlight" id="remaining_xp">0 XP</span>,
+    <span class="highlight" id="remaining_percent">0%</span>
+</span>
+<br/>
+<br/>
+<span title="How much you have been earning per day, on average, so far this season">
+    Daily average earnings:
+    <span class="highlight" id="daily_average_tiers">0 tiers</span>,
+    <span class="highlight" id="daily_average_xp">0 XP</span>,
+    <span class="highlight" id="daily_average_percent">0%</span>
+</span>
+<br/>
+<span title="How much you have been earning per week, on average, so far this season">
+    Weekly average earnings:
+    <span class="highlight" id="weekly_average_tiers">0 tiers</span>,
+    <span class="highlight" id="weekly_average_xp">0 XP</span>,
+    <span class="highlight" id="weekly_average_percent">0%</span>
+</span>
+<br/>
+<br/>
+<span title="How much you will need to earn per day for the rest of this season to complete the battle pass on time">
+    Daily goal:
+    <span class="highlight" id="daily_goal_tiers">0 tiers</span>,
+    <span class="highlight" id="daily_goal_xp">0 XP</span>,
+    <span class="highlight" id="daily_goal_percent">0%</span>
+</span>
+<br/>
+<span title="How much you will need to earn per week for the rest of this season to complete the battle pass on time">
+    Weekly goal:
+    <span class="highlight" id="weekly_goal_tiers">0 tiers</span>,
+    <span class="highlight" id="weekly_goal_xp">0 XP</span>,
+    <span class="highlight" id="weekly_goal_percent">0%</span>
+</span>
+<br/>
+<br/>
+<span title="How much you will earn per day based on your planned matches/dailies/weeklies">
+    Expected daily gains:
+    <span class="highlight" id="expected_daily_tiers">0 tiers</span>,
+    <span class="highlight" id="expected_daily_xp">0 XP</span>,
+    <span class="highlight" id="expected_daily_percent">0%</span>
+</span>
+<br/>
+<span title="How much you will earn per week based on your planned matches/dailies/weeklies">
+    Expected weekly gains:
+    <span class="highlight" id="expected_weekly_tiers">0 tiers</span>,
+    <span class="highlight" id="expected_weekly_xp">0 XP</span>,
+    <span class="highlight" id="expected_weekly_percent">0%</span>
+</span>
+<br/>
+<br/>
+<span id="prompt_spare_days" style="display: none;"
+      title="How early you will finish the battle pass based on your expected gains">
+    Based on your expected gains, you will finish the battle pass with
+    <span class="highlight" id="spare_days">0 days</span> to spare
+    <br/>
+    <br/>
+</span>
+<span id="prompt_spare_tiers" style="display: none;"
+      title="How many tiers you will fail to complete based on your current progress">
+    At your current pace you will fall
+    <span class="highlight" id="spare_tiers">0 tiers</span>
+    short of finishing the battle pass<br/>
+    Buying your remaining tiers at the end will cost
+    <span class="highlight" id="spare_tiers_cost">0 coins</span>
+    (<span class="highlight" id="spare_tiers_cost_usd">$0 USD</span>)
+    <br/>
+    <br/>
+</span>
+<span title="How frequently you will be able to buy a legendary skin">
+    You will earn the 2,000 coins necessary to buy a legendary skin every
+    <span class="highlight" id="days_per_legendary">0 days</span>
+</span>
+<br/>
+<br/>
+
+<script src="./script.js"></script>
+
+</body>
+</html>
