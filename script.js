@@ -229,7 +229,7 @@ class OverwatchCalculator {
         document.getElementsByName('expected_play_days')[0].value = this.loadKey('expected_play_days', 5);
         document.getElementsByName('expected_dailies')[0].value = this.loadKey('expected_dailies', 3);
         document.getElementsByName('expected_daily_matches')[0].value = this.loadKey('expected_daily_matches', 3);
-        document.getElementsByName('expected_match_xp')[0].value = this.loadKey('expected_match_xp', 1000);
+        document.getElementsByName('expected_match_xp')[0].value = this.loadKey('expected_match_xp', 500);
     }
 
     static reset() {
@@ -239,7 +239,7 @@ class OverwatchCalculator {
         document.getElementsByName('expected_play_days')[0].value = '5';
         document.getElementsByName('expected_dailies')[0].value = '3';
         document.getElementsByName('expected_daily_matches')[0].value = '3';
-        document.getElementsByName('expected_match_xp')[0].value = '1000';
+        document.getElementsByName('expected_match_xp')[0].value = '500';
         this.update();
     }
 
