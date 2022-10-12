@@ -192,6 +192,27 @@ class OverwatchCalculator {
         return this.projectedSpareTiersCost() / 100;
     }
 
+    static projectedPrestigeTiers() {
+        let have = this.currentXp();
+        let projecting = this.dailyAverageXp() * this.remainingDays();
+        let total = have + projecting;
+        return Math.min(Math.floor(total / 10000) - 80, 200 - 80);
+    }
+
+    static projectedPrestigeTierTitles() {
+        let extraTiers = this.projectedPrestigeTiers();
+
+        if (extraTiers >= 200 - 80) return 8;
+        else if (extraTiers >= 175 - 80) return 7;
+        else if (extraTiers >= 155 - 80) return 6;
+        else if (extraTiers >= 135 - 80) return 5;
+        else if (extraTiers >= 120 - 80) return 4;
+        else if (extraTiers >= 105 - 80) return 3;
+        else if (extraTiers >= 95 - 80) return 2;
+        else if (extraTiers >= 85 - 80) return 1;
+        else return 0;
+    }
+
     static expectedSpareDays() {
         let required = 80 * 10000;
         let have = this.currentXp();
@@ -216,6 +237,27 @@ class OverwatchCalculator {
 
     static expectedSpareTiersCostUsd() {
         return this.expectedSpareTiersCost() / 100;
+    }
+
+    static expectedPrestigeTiers() {
+        let have = this.currentXp();
+        let expecting = this.expectedXp();
+        let total = have + expecting;
+        return Math.min(Math.floor(total / 10000) - 80, 200 - 80);
+    }
+
+    static expectedPrestigeTierTitles() {
+        let extraTiers = this.expectedPrestigeTiers();
+
+        if (extraTiers >= 200 - 80) return 8;
+        else if (extraTiers >= 175 - 80) return 7;
+        else if (extraTiers >= 155 - 80) return 6;
+        else if (extraTiers >= 135 - 80) return 5;
+        else if (extraTiers >= 120 - 80) return 4;
+        else if (extraTiers >= 105 - 80) return 3;
+        else if (extraTiers >= 95 - 80) return 2;
+        else if (extraTiers >= 85 - 80) return 1;
+        else return 0;
     }
 
     static daysPerLegendary() {
@@ -328,10 +370,16 @@ class OverwatchCalculator {
 
         //projected completion
         document.getElementById('prompt_projected_finish').style.display = 'none';
+        document.getElementById('prompt_projected_prestige_tiers').style.display = 'none';
         document.getElementById('prompt_projected_spare_tiers').style.display = 'none';
         if (this.projectedSpareDays() >= 0) {
             document.getElementById('projected_spare_days').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}).format(Math.floor(this.projectedSpareDays())) + ' days';
             document.getElementById('prompt_projected_finish').style.display = 'inline';
+            if (this.projectedPrestigeTiers() >= 0) {
+                document.getElementById('projected_prestige_tiers').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}).format(Math.floor(this.projectedPrestigeTiers())) + ' prestige tiers';
+                document.getElementById('projected_prestige_titles').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}).format(Math.floor(this.projectedPrestigeTierTitles())) + ' prestige titles';
+                document.getElementById('prompt_projected_prestige_tiers').style.display = 'inline';
+            }
         } else {
             document.getElementById('projected_spare_tiers').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}).format(Math.ceil(this.projectedSpareTiers())) + ' tiers';
             document.getElementById('projected_spare_tiers_cost').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}).format(Math.ceil(this.projectedSpareTiersCost())) + ' coins';
@@ -341,10 +389,16 @@ class OverwatchCalculator {
 
         //expected completion
         document.getElementById('prompt_expected_finish').style.display = 'none';
+        document.getElementById('prompt_expected_prestige_tiers').style.display = 'none';
         document.getElementById('prompt_expected_spare_tiers').style.display = 'none';
         if (this.expectedSpareDays() >= 0) {
             document.getElementById('expected_spare_days').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}).format(Math.floor(this.expectedSpareDays())) + ' days';
             document.getElementById('prompt_expected_finish').style.display = 'inline';
+            if (this.expectedPrestigeTiers() >= 0) {
+                document.getElementById('expected_prestige_tiers').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}).format(Math.floor(this.expectedPrestigeTiers())) + ' prestige tiers';
+                document.getElementById('expected_prestige_titles').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}).format(Math.floor(this.expectedPrestigeTierTitles())) + ' prestige titles';
+                document.getElementById('prompt_expected_prestige_tiers').style.display = 'inline';
+            }
         } else {
             document.getElementById('expected_spare_tiers').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}).format(Math.ceil(this.expectedSpareTiers())) + ' tiers';
             document.getElementById('expected_spare_tiers_cost').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}).format(Math.ceil(this.expectedSpareTiersCost())) + ' coins';
