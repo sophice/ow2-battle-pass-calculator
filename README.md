@@ -11,9 +11,9 @@ Access the calculator here: https://sophice.github.io/ow2-battle-pass-calculator
 * Daily/weekly average performance
 * Daily/weekly goals
 * Daily/weekly expected gains
-* How many days early you will finish the pass, if you will finish in time
-* How many tiers you will be missing at the end, and what they would cost to buy
-* How often you will be able to afford to buy a legendary skin
+* If you will finish in time, how many days early you will finish
+* If you will not finish in time, how many tiers you will be short, and what they would cost to buy
+* How often you will be able to afford to buy a battle pass or legendary skin with coins
 
 ## Features
 
