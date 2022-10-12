@@ -166,7 +166,33 @@ class OverwatchCalculator {
         return this.expectedDailyXp() * this.remainingDays();
     }
 
-    static spareDays() {
+    static projectedSpareDays() {
+        let required = 80 * 10000;
+        let have = this.currentXp();
+        let need = required - have;
+        let expecting = this.dailyAverageXp() * this.remainingDays();
+        let extra = expecting - need;
+        return extra / this.dailyAverageXp();
+    }
+
+    static projectedSpareTiers() {
+        let required = 80 * 10000;
+        let have = this.currentXp();
+        let need = required - have;
+        let expecting = this.dailyAverageXp() * this.remainingDays();
+        let missing = need - expecting;
+        return Math.ceil(missing / 10000);
+    }
+
+    static projectedSpareTiersCost() {
+        return this.projectedSpareTiers() * 200;
+    }
+
+    static projectedSpareTiersCostUsd() {
+        return this.projectedSpareTiersCost() / 100;
+    }
+
+    static expectedSpareDays() {
         let required = 80 * 10000;
         let have = this.currentXp();
         let need = required - have;
@@ -175,7 +201,7 @@ class OverwatchCalculator {
         return extra / this.expectedDailyXp();
     }
 
-    static spareTiers() {
+    static expectedSpareTiers() {
         let required = 80 * 10000;
         let have = this.currentXp();
         let need = required - have;
@@ -184,12 +210,12 @@ class OverwatchCalculator {
         return Math.ceil(missing / 10000);
     }
 
-    static spareTiersCost() {
-        return this.spareTiers() * 200;
+    static expectedSpareTiersCost() {
+        return this.expectedSpareTiers() * 200;
     }
 
-    static spareTiersCostUsd() {
-        return this.spareTiersCost() / 100;
+    static expectedSpareTiersCostUsd() {
+        return this.expectedSpareTiersCost() / 100;
     }
 
     static daysPerLegendary() {
@@ -300,17 +326,30 @@ class OverwatchCalculator {
         document.getElementById('expected_weekly_xp').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}).format(this.expectedWeeklyXp()) + ' XP';
         document.getElementById('expected_weekly_percent').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 2}).format(this.expectedWeeklyPercent()) + '%';
 
-        //completion
-        document.getElementById('prompt_spare_days').style.display = 'none';
-        document.getElementById('prompt_spare_tiers').style.display = 'none';
-        if (this.spareDays() >= 0) {
-            document.getElementById('prompt_spare_days').style.display = 'inline';
-            document.getElementById('spare_days').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}).format(Math.floor(this.spareDays())) + ' days';
+        //projected completion
+        document.getElementById('prompt_projected_finish').style.display = 'none';
+        document.getElementById('prompt_projected_spare_tiers').style.display = 'none';
+        if (this.projectedSpareDays() >= 0) {
+            document.getElementById('projected_spare_days').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}).format(Math.floor(this.projectedSpareDays())) + ' days';
+            document.getElementById('prompt_projected_finish').style.display = 'inline';
         } else {
-            document.getElementById('prompt_spare_tiers').style.display = 'inline';
-            document.getElementById('spare_tiers').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}).format(Math.ceil(this.spareTiers())) + ' tiers';
-            document.getElementById('spare_tiers_cost').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}).format(Math.ceil(this.spareTiersCost())) + ' coins';
-            document.getElementById('spare_tiers_cost_usd').innerText = '$' + new Intl.NumberFormat(undefined, {maximumFractionDigits: 2}).format(this.spareTiersCostUsd()) + ' USD';
+            document.getElementById('projected_spare_tiers').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}).format(Math.ceil(this.projectedSpareTiers())) + ' tiers';
+            document.getElementById('projected_spare_tiers_cost').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}).format(Math.ceil(this.projectedSpareTiersCost())) + ' coins';
+            document.getElementById('projected_spare_tiers_cost_usd').innerText = '$' + new Intl.NumberFormat(undefined, {maximumFractionDigits: 2}).format(this.projectedSpareTiersCostUsd()) + ' USD';
+            document.getElementById('prompt_projected_spare_tiers').style.display = 'inline';
+        }
+
+        //expected completion
+        document.getElementById('prompt_expected_finish').style.display = 'none';
+        document.getElementById('prompt_expected_spare_tiers').style.display = 'none';
+        if (this.expectedSpareDays() >= 0) {
+            document.getElementById('expected_spare_days').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}).format(Math.floor(this.expectedSpareDays())) + ' days';
+            document.getElementById('prompt_expected_finish').style.display = 'inline';
+        } else {
+            document.getElementById('expected_spare_tiers').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}).format(Math.ceil(this.expectedSpareTiers())) + ' tiers';
+            document.getElementById('expected_spare_tiers_cost').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}).format(Math.ceil(this.expectedSpareTiersCost())) + ' coins';
+            document.getElementById('expected_spare_tiers_cost_usd').innerText = '$' + new Intl.NumberFormat(undefined, {maximumFractionDigits: 2}).format(this.expectedSpareTiersCostUsd()) + ' USD';
+            document.getElementById('prompt_expected_spare_tiers').style.display = 'inline';
         }
 
         //days per legendary
