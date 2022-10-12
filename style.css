@@ -34,6 +34,11 @@ span.highlight {
 }
 
 input[type="text"] {
+    font-family: 'Config', serif;
+    line-height: 22px;
+    letter-spacing: 1px;
+    padding-left: 5px;
+    width:50px;
     color: #fff;
     background-color: #4b5e81;
     border: 0;
