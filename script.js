@@ -307,7 +307,7 @@ class OverwatchCalculator {
     static load() {
         document.getElementsByName('current_tier')[0].value = this.loadKey('current_tier', 1);
         document.getElementsByName('current_tier_xp')[0].value = this.loadKey('current_tier_xp', 0);
-        document.getElementsByName('expected_weeklies')[0].value = this.loadKey('expected_weeklies', 9);
+        document.getElementsByName('expected_weeklies')[0].value = this.loadKey('expected_weeklies', 8);
         document.getElementsByName('expected_play_days')[0].value = this.loadKey('expected_play_days', 5);
         document.getElementsByName('expected_dailies')[0].value = this.loadKey('expected_dailies', 3);
         document.getElementsByName('expected_daily_matches')[0].value = this.loadKey('expected_daily_matches', 3);
@@ -317,7 +317,7 @@ class OverwatchCalculator {
     static reset() {
         document.getElementsByName('current_tier')[0].value = '1';
         document.getElementsByName('current_tier_xp')[0].value = '0';
-        document.getElementsByName('expected_weeklies')[0].value = '9';
+        document.getElementsByName('expected_weeklies')[0].value = '8';
         document.getElementsByName('expected_play_days')[0].value = '5';
         document.getElementsByName('expected_dailies')[0].value = '3';
         document.getElementsByName('expected_daily_matches')[0].value = '3';
