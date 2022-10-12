@@ -2,9 +2,7 @@
 
 Access the calculator here: https://sophice.github.io/ow2-battle-pass-calculator/
 
-This is a simple calculator to help you track your progress through battle passes in Overwatch 2. Fill out a few fields and get stats on your progress!
-
-## The tool reports
+This is a simple battle pass calculator for Overwatch 2. Fill out a few fields and you will get back;
 
 * Current progress
 * Remaining effort
