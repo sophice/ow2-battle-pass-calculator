@@ -4,7 +4,7 @@
 }
 
 body {
-    background-color: #283244;
+    background: radial-gradient(31.74% 3046.23% at 50% 49.81%, #242a42 0, #121524 100%);
     color: #fff;
     font-family: 'Config', serif;
     line-height: 28px;
