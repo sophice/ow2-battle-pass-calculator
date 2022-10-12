@@ -32,3 +32,14 @@ a {
 span.highlight {
     color: #dc5d17;
 }
+
+input[type="text"] {
+    color: #fff;
+    background-color: #4b5e81;
+    border: 0;
+    outline: 0;
+}
+
+input:focus {
+    outline: none !important;
+}
