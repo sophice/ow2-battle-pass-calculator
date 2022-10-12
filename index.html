@@ -46,8 +46,7 @@
 <br/>
 <br/>
 
-<h1>What's the grind?</h1>
-
+<h2>Your progress so far</h2>
 <span title="Your current progress in this season's battle pass">
     Progress:
     <span class="highlight" id="progress_days">0 days</span>,
@@ -65,21 +64,8 @@
 </span>
 <br/>
 <br/>
-<span title="How much you have been earning per day, on average, so far this season">
-    Daily average earnings:
-    <span class="highlight" id="daily_average_tiers">0 tiers</span>,
-    <span class="highlight" id="daily_average_xp">0 XP</span>,
-    <span class="highlight" id="daily_average_percent">0%</span>
-</span>
-<br/>
-<span title="How much you have been earning per week, on average, so far this season">
-    Weekly average earnings:
-    <span class="highlight" id="weekly_average_tiers">0 tiers</span>,
-    <span class="highlight" id="weekly_average_xp">0 XP</span>,
-    <span class="highlight" id="weekly_average_percent">0%</span>
-</span>
-<br/>
-<br/>
+
+<h2>Minimum needed to finish</h2>
 <span title="How much you will need to earn per day for the rest of this season to complete the battle pass on time">
     Daily goal:
     <span class="highlight" id="daily_goal_tiers">0 tiers</span>,
@@ -95,6 +81,43 @@
 </span>
 <br/>
 <br/>
+
+<h2>Projected finish</h2>
+<p>These are based on how fast you've been progressing through tiers so far.</p>
+<span title="How much you have been earning per day, on average, so far this season">
+    Daily average earnings:
+    <span class="highlight" id="daily_average_tiers">0 tiers</span>,
+    <span class="highlight" id="daily_average_xp">0 XP</span>,
+    <span class="highlight" id="daily_average_percent">0%</span>
+</span>
+<br/>
+<span title="How much you have been earning per week, on average, so far this season">
+    Weekly average earnings:
+    <span class="highlight" id="weekly_average_tiers">0 tiers</span>,
+    <span class="highlight" id="weekly_average_xp">0 XP</span>,
+    <span class="highlight" id="weekly_average_percent">0%</span>
+</span>
+<br/>
+<span id="prompt_projected_finish" style="display: none;"
+      title="How early you will finish the battle pass based on your current rate of progress">
+    You would finish the battle pass with
+    <span class="highlight" id="projected_spare_days">0 days</span> to spare
+    <br/>
+</span>
+<span id="prompt_projected_spare_tiers" style="display: none;"
+      title="How many tiers you will fail to complete based on your current progress">
+    You would fall
+    <span class="highlight" id="projected_spare_tiers">0 tiers</span>
+    short of finishing the battle pass<br/>
+    Buying your remaining tiers at the end would cost
+    <span class="highlight" id="projected_spare_tiers_cost">0 coins</span>
+    (<span class="highlight" id="projected_spare_tiers_cost_usd">$0 USD</span>)
+    <br/>
+</span>
+<br/>
+
+<h2>Expected finish</h2>
+<p>These are based on how many weeklies/dailies/matches you plan on doing in the future.</p>
 <span title="How much you will earn per day based on your planned matches/dailies/weeklies">
     Expected daily gains:
     <span class="highlight" id="expected_daily_tiers">0 tiers</span>,
@@ -109,33 +132,15 @@
     <span class="highlight" id="expected_weekly_percent">0%</span>
 </span>
 <br/>
-<br/>
-<span id="prompt_projected_finish" style="display: none;"
-      title="How early you will finish the battle pass based on your current rate of progress">
-    Based on your rate of progress so far, you would finish the battle pass with
-    <span class="highlight" id="projected_spare_days">0 days</span> to spare
-    <br/>
-</span>
-<span id="prompt_projected_spare_tiers" style="display: none;"
-      title="How many tiers you will fail to complete based on your current progress">
-    Based on your rate of progress so far, you will fall
-    <span class="highlight" id="projected_spare_tiers">0 tiers</span>
-    short of finishing the battle pass<br/>
-    Buying your remaining tiers at the end would cost
-    <span class="highlight" id="projected_spare_tiers_cost">0 coins</span>
-    (<span class="highlight" id="projected_spare_tiers_cost_usd">$0 USD</span>)
-    <br/>
-</span>
-<br/>
 <span id="prompt_expected_finish" style="display: none;"
       title="How early you will finish the battle pass based on your future expected gains">
-    Based on the expected gains from your plan above, you would finish the battle pass with
+    You would finish the battle pass with
     <span class="highlight" id="expected_spare_days">0 days</span> to spare
     <br/>
 </span>
 <span id="prompt_expected_spare_tiers" style="display: none;"
       title="How many tiers you will fail to complete based on your current progress">
-    Based on the expected gains from your plan above, you will fall
+    You would fall
     <span class="highlight" id="expected_spare_tiers">0 tiers</span>
     short of finishing the battle pass<br/>
     Buying your remaining tiers at the end would cost
@@ -144,6 +149,8 @@
     <br/>
 </span>
 <br/>
+
+<h2>Coin earnings</h2>
 <span title="How frequently you will be able to buy a battle pass">
     You will earn the 1,000 <img src="coin.webp" style="max-width:25px; position: relative; top:6px;" alt="Coin"/> necessary to buy a battle pass every
     <span class="highlight" id="days_per_battle_pass">0 days</span>
