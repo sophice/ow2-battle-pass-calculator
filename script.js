@@ -20,7 +20,11 @@ class OverwatchCalculator {
     }
 
     static currentTier() {
-        return parseInt(document.getElementsByName('current_tier')[0].value || '0');
+        return parseInt(document.getElementsByName('current_tier')[0].value || '1');
+    }
+
+    static currentCompletedTier() {
+        return Math.max(this.currentTier() - 1, 0);
     }
 
     static currentTierXp() {
@@ -28,15 +32,15 @@ class OverwatchCalculator {
     }
 
     static currentXp() {
-        return (this.currentTier() * 10000) + this.currentTierXp();
+        return (this.currentCompletedTier() * 10000) + this.currentTierXp();
     }
 
     static currentPercent() {
-        return (this.currentTier() / 80) * 100;
+        return (this.currentCompletedTier() / 80) * 100;
     }
 
     static remainingTiers() {
-        return 80 - this.currentTier();
+        return 80 - this.currentCompletedTier();
     }
 
     static remainingXp() {
@@ -48,7 +52,7 @@ class OverwatchCalculator {
     }
 
     static dailyAverageTiers() {
-        return this.currentTier() / this.currentDay();
+        return this.currentCompletedTier() / this.currentDay();
     }
 
     static dailyAverageXp() {
@@ -219,7 +223,7 @@ class OverwatchCalculator {
     }
 
     static load() {
-        document.getElementsByName('current_tier')[0].value = this.loadKey('current_tier', 0);
+        document.getElementsByName('current_tier')[0].value = this.loadKey('current_tier', 1);
         document.getElementsByName('current_tier_xp')[0].value = this.loadKey('current_tier_xp', 0);
         document.getElementsByName('expected_weeklies')[0].value = this.loadKey('expected_weeklies', 9);
         document.getElementsByName('expected_play_days')[0].value = this.loadKey('expected_play_days', 5);
@@ -229,7 +233,7 @@ class OverwatchCalculator {
     }
 
     static reset() {
-        document.getElementsByName('current_tier')[0].value = '0';
+        document.getElementsByName('current_tier')[0].value = '1';
         document.getElementsByName('current_tier_xp')[0].value = '0';
         document.getElementsByName('expected_weeklies')[0].value = '9';
         document.getElementsByName('expected_play_days')[0].value = '5';
@@ -242,7 +246,7 @@ class OverwatchCalculator {
     static update() {
         //progress
         document.getElementById('progress_days').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}).format(this.currentDay()) + ' days';
-        document.getElementById('progress_tiers').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 2}).format(this.currentTier()) + ' tiers';
+        document.getElementById('progress_tiers').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 2}).format(this.currentCompletedTier()) + ' tiers';
         document.getElementById('progress_xp').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}).format(this.currentXp()) + ' XP';
         document.getElementById('progress_percent').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 2}).format(this.currentPercent()) + '%';
 
