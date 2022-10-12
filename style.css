@@ -1,5 +1,23 @@
+@font-face {
+    font-family: Config;
+    src: url("./config.otf") format("opentype");
+}
+
 body {
-    background-color: #242a42;
+    background-color: #283244;
+    color: #fff;
+    font-family: 'Config', serif;
+    line-height: 28px;
+    letter-spacing: 1px;
+}
+
+button {
+    font-family: 'Config', serif;
+    line-height: 28px;
+    letter-spacing: 1px;
+    background-color: #dc5d17;
+    border-radius: 2px;
+    border: none;
     color: #fff;
 }
 

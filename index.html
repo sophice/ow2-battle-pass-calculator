@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="./style.css">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
 </head>
-<body style="background-color: #283244;">
+<body>
 
 <h1>Overwatch 2 Battle Pass Calculator</h1>
 
@@ -26,7 +26,10 @@
 <label>What is your average match XP including all bonuses?
     <input type="text" name="expected_match_xp" value="1000" onkeyup="OverwatchCalculator.update();"/></label><br/>
 <br/>
-<input type="submit" name="Update" value="Update" onclick="OverwatchCalculator.update()"/>
+
+<button type="button" onclick="OverwatchCalculator.update()">Update</button>
+<br/>
+<br/>
 
 <h1>What's the grind?</h1>
 
