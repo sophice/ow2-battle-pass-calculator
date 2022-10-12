@@ -4,7 +4,7 @@ This is a simple calculator to help you track your progress through battle passe
 
 Access the calculator here: https://sophice.github.io/ow2-battle-pass-calculator/
 
-The tool reports;
+## The tool reports
 
 * Current progress
 * Remaining effort
@@ -15,10 +15,12 @@ The tool reports;
 * How many tiers you will be missing at the end, and what they would cost to buy
 * How often you will be able to afford to buy a legendary skin
 
-Features;
+## Features
 
 * Cool Overwatch font
 * Cool Overwatch orange
 * Saving your inputs so you don't have to re-enter it every time
 
-Feel free to contribute! I hope you find it useful!
+## Contribute
+
+Feel free to contribute! Bugs, suggestions, PRs, I welcome feedback and help.
