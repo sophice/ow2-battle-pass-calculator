@@ -120,10 +120,14 @@ class OverwatchCalculator {
     }
 
     static expectedDailyDailiesXp() {
-        if (this.expectedDailies() >= 3) return 9000;
-        else if (this.expectedDailies() >= 2) return 6000;
-        else if (this.expectedDailies() >= 1) return 3000;
-        return 0;
+        let dailyXp = 0;
+
+        if (this.expectedDailies() >= 3) dailyXp = 9000;
+        else if (this.expectedDailies() >= 2) dailyXp = 6000;
+        else if (this.expectedDailies() >= 1) dailyXp = 3000;
+        else return 0;
+
+        return (dailyXp * this.expectedPlayDays()) / 7;
     }
 
     static expectedDailyWeekliesXp() {
