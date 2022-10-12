@@ -18,7 +18,10 @@
 </head>
 <body>
 
-<h1>Overwatch 2 Battle Pass Calculator</h1>
+<h1>
+    <img src="logo.webp" style="max-width:240px; position: relative; top:3px;" alt="Overwatch 2"/>
+    Battle Pass Calculator
+</h1>
 
 <label>What is your current battle pass tier?
     <input type="text" name="current_tier" onkeyup="OverwatchCalculator.update();"/>
@@ -125,8 +128,13 @@
     <br/>
     <br/>
 </span>
+<span title="How frequently you will be able to buy a battle pass">
+    You will earn the 1,000 <img src="coin.webp" style="max-width:25px; position: relative; top:6px;" alt="Coin"/> necessary to buy a battle pass every
+    <span class="highlight" id="days_per_battle_pass">0 days</span>
+</span>
+<br/>
 <span title="How frequently you will be able to buy a legendary skin">
-    You will earn the 2,000 coins necessary to buy a legendary skin every
+    You will earn the 2,000 <img src="coin.webp" style="max-width:25px; position: relative; top:6px;" alt="Coin"/> necessary to buy a legendary skin every
     <span class="highlight" id="days_per_legendary">0 days</span>
 </span>
 <br/>

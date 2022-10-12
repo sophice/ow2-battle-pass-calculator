@@ -206,6 +206,20 @@ class OverwatchCalculator {
         return (2000 / weekly) * 7;
     }
 
+    static daysPerBattlePass() {
+        let weekly = 0;
+        if (this.expectedWeeklies() >= 4) {
+            weekly = 30;
+        }
+        if (this.expectedWeeklies() >= 8) {
+            weekly = 50;
+        }
+        if (this.expectedWeeklies() >= 11) {
+            weekly = 60;
+        }
+        return (1000 / weekly) * 7;
+    }
+
     static save() {
         localStorage.setItem('current_tier', this.currentTier().toString());
         localStorage.setItem('current_tier_xp', this.currentTierXp().toString());
@@ -300,8 +314,8 @@ class OverwatchCalculator {
         }
 
         //days per legendary
-        //TODO: this is calculating wrong.... 9 and 10 for example should take just as long but they aren't
         document.getElementById('days_per_legendary').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}).format(Math.ceil(this.daysPerLegendary())) + ' days';
+        document.getElementById('days_per_battle_pass').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}).format(Math.ceil(this.daysPerBattlePass())) + ' days';
 
         this.save();
     }
