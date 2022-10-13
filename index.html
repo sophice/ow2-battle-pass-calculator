@@ -13,8 +13,8 @@
         gtag('config', 'G-F869CLWZY4');
     </script>
     <title>Overwatch 2 Battle Pass Calculator</title>
-    <script defer src="https://unpkg.com/alpinejs@3.10.4/dist/cdn.min.js"></script>
-    <script defer src="alpine.js"></script>
+    <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="./style.css">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
 </head>
@@ -26,21 +26,21 @@
     </h1>
 
     <label>What is your current battle pass tier?
-        <input type="text" x-model="current_tier" @keyup="onInput();"/>
+        <input type="text" x-model="current_tier"/>
         (max 80)</label><br/>
     <label>How much XP have you earned towards the current tier?
-        <input type="text" x-model="current_tier_xp" @keyup="onInput();"/>
+        <input type="text" x-model="current_tier_xp"/>
         (max 10,000)</label><br/>
     <label>How many weeklies will you do each week?
-        <input type="text" x-model="expected_weeklies" @keyup="onInput();"/></label><br/>
+        <input type="text" x-model="expected_weeklies"/></label><br/>
     <label>How many days per week will you play?
-        <input type="text" x-model="expected_play_days" @keyup="onInput();"/></label><br/>
+        <input type="text" x-model="expected_play_days"/></label><br/>
     <label>On days that you play, how may dailies will you do?
-        <input type="text" x-model="expected_dailies" @keyup="onInput();"/></label><br/>
+        <input type="text" x-model="expected_dailies"/></label><br/>
     <label>On days that you play, how many matches will you complete?
-        <input type="text" x-model="expected_daily_matches" @keyup="onInput();"/></label><br/>
+        <input type="text" x-model="expected_daily_matches"/></label><br/>
     <label>What is your average match XP including all bonuses?
-        <input type="text" x-model="expected_match_xp" @keyup="onInput();"/></label><br/>
+        <input type="text" x-model="expected_match_xp"/></label><br/>
     <br/>
 
     <button type="button" onclick="App.onInput()">Update</button>
@@ -51,18 +51,18 @@
     <h2>Your progress so far</h2>
     <span title="Your current progress in this season's battle pass">
         Progress:
-        <span class="highlight" x-text="currentDay()+' days'"></span>,
+        <span class="highlight" x-text="currentDay().$round(1).$localize()+' days'"></span>,
         <span class="highlight" x-text="currentCompletedTier()+' tiers'"></span>,
-        <span class="highlight" x-text="currentXp()+' XP'"></span>,
-        <span class="highlight" x-text="currentPercent()+'%'"></span>
+        <span class="highlight" x-text="currentXp().$localize()+' XP'"></span>,
+        <span class="highlight" x-text="currentPercent().$round(1)+'%'"></span>
     </span>
     <br/>
     <span title="How much work you have left to do to complete this season's battle pass">
         Remaining:
-        <span class="highlight" x-text="remaining_days"></span>,
-        <span class="highlight" x-text="remaining_tiers">0 tiers</span>,
-        <span class="highlight" x-text="remaining_xp">0 XP</span>,
-        <span class="highlight" x-text="remaining_percent">0%</span>
+        <span class="highlight" x-text="remainingDays().$round(1)+' days'"></span>,
+        <span class="highlight" x-text="remainingTiers()+' tiers'"></span>,
+        <span class="highlight" x-text="remainingXp().$localize()+' XP'"></span>,
+        <span class="highlight" x-text="remainingPercent().$round(1)+'%'"></span>
     </span>
     <br/>
     <br/>
@@ -70,16 +70,16 @@
     <h2>Minimum needed to finish</h2>
     <span title="How much you will need to earn per day for the rest of this season to complete the battle pass on time">
         Daily goal:
-        <span class="highlight" x-text="daily_goal_tiers">0 tiers</span>,
-        <span class="highlight" x-text="daily_goal_xp">0 XP</span>,
-        <span class="highlight" x-text="daily_goal_percent">0%</span>
+        <span class="highlight" x-text="minimumDailyTiers().$round(1)+' tiers'"></span>,
+        <span class="highlight" x-text="minimumDailyXp().$round().$localize()+' XP'"></span>,
+        <span class="highlight" x-text="minimumDailyPercent().$round(1)+'%'"></span>
     </span>
     <br/>
     <span title="How much you will need to earn per week for the rest of this season to complete the battle pass on time">
         Weekly goal:
-        <span class="highlight" x-text="weekly_goal_tiers">0 tiers</span>,
-        <span class="highlight" x-text="weekly_goal_xp">0 XP</span>,
-        <span class="highlight" x-text="weekly_goal_percent">0%</span>
+        <span class="highlight" x-text="minimumWeeklyTiers().$round(1)+' tiers'"></span>,
+        <span class="highlight" x-text="minimumWeeklyXp().$round().$localize()+' XP'"></span>,
+        <span class="highlight" x-text="minimumWeeklyPercent().$round(1)+'%'"></span>
     </span>
     <br/>
     <br/>
@@ -88,24 +88,31 @@
     <p>These are based on how fast you've been progressing through tiers so far.</p>
     <span title="How much you have been earning per day, on average, so far this season">
         Daily average earnings:
-        <span class="highlight" x-text="daily_average_tiers">0 tiers</span>,
-        <span class="highlight" x-text="daily_average_xp">0 XP</span>,
-        <span class="highlight" x-text="daily_average_percent">0%</span>
+        <span class="highlight" x-text="projectedDailyTiers().$round(1)+' tiers'"></span>,
+        <span class="highlight" x-text="projectedDailyXp().$round().$localize()+' XP'"></span>,
+        <span class="highlight" x-text="projectedDailyPercent().$round(1)+'%'"></span>
     </span>
     <br/>
     <span title="How much you have been earning per week, on average, so far this season">
         Weekly average earnings:
-        <span class="highlight" x-text="weekly_average_tiers">0 tiers</span>,
-        <span class="highlight" x-text="weekly_average_xp">0 XP</span>,
-        <span class="highlight" x-text="weekly_average_percent">0%</span>
+        <span class="highlight" x-text="projectedWeeklyTiers().$round(1)+' tiers'"></span>,
+        <span class="highlight" x-text="projectedWeeklyXp().$round().$localize()+' XP'"></span>,
+        <span class="highlight" x-text="projectedWeeklyPercent().$round(1)+'%'"></span>
     </span>
     <br/>
-    <span x-show="projected_will_finish" style="display: none;"
+    <span x-show="projectedWillFinish()" style="display: none;"
           title="How early you will finish the battle pass based on your current rate of progress">
-        You would finish the battle pass with
-        <span class="highlight" x-text="projected_spare_days">0 days</span>
-        to spare, and you would earn enough XP for
-        <span class="highlight" x-text="projected_tiers">0 tiers</span>
+        You would finish the battle pass in
+        <span class="highlight" x-text="projectedDays().$round(1)+' days'"></span>
+        with
+        <span class="highlight" x-text="projectedSpareDays().$round(1)+' days'"></span>
+        to spare
+        <br/>
+    </span>
+    <span x-show="projectedWillFinish()" style="display: none;"
+          title="How early you will finish the battle pass based on your current rate of progress">
+        You would earn enough XP for
+        <span class="highlight" x-text="projectedTiers().$floor()+' tiers'"></span>
         <br/>
     </span>
     <span x-show="projected_will_prestige" style="display:none;"
