@@ -192,10 +192,14 @@ document.addEventListener('alpine:init', () => {
             },
 
             //projected fail
-            projected_will_fail: '',
-            projected_spare_tiers: '',
-            projected_spare_tiers_cost: '',
-            projected_spare_tiers_cost_usd: '',
+            projectedWillFail() {
+            },
+            projectedSpareTiers() {
+            },
+            projectedSpareTiersCoins() {
+            },
+            projectedSpareTiersDollars() {
+            },
 
             //expected daily earn rate
             expected_daily_tiers: '',
