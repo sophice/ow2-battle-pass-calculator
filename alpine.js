@@ -65,6 +65,17 @@ document.addEventListener('alpine:init', () => {
             expected_daily_matches: this.$persist(5),
             expected_match_xp: this.$persist(500),
 
+            //reset
+            reset() {
+                this.current_tier = 1;
+                this.current_tier_xp = 0;
+                this.expected_weeklies = 8;
+                this.expected_play_days = 5;
+                this.expected_dailies = 3;
+                this.expected_daily_matches = 5;
+                this.expected_match_xp = 500;
+            },
+
             //season
             seasonStart() {
                 return new Date('2022-10-04');
@@ -193,43 +204,135 @@ document.addEventListener('alpine:init', () => {
 
             //projected fail
             projectedWillFail() {
+                return this.projectedTiers() < 80;
             },
             projectedSpareTiers() {
+                return 80 - this.projectedTiers();
             },
             projectedSpareTiersCoins() {
+                return this.projectedSpareTiers().$ceil() * 200;
             },
             projectedSpareTiersDollars() {
+                return this.projectedSpareTiersCoins() / 100;
             },
 
             //expected daily earn rate
-            expected_daily_tiers: '',
-            expected_daily_xp: '',
-            expected_daily_percent: '',
+            expectedDailyMatches() {
+                return parseInt(this.expected_daily_matches);
+            },
+            expectedMatchXp() {
+                return parseInt(this.expected_match_xp);
+            },
+            expectedPlayDays() {
+                return parseInt(this.expected_play_days);
+            },
+            expectedDailies() {
+                return parseInt(this.expected_dailies);
+            },
+            expectedDailyDailiesXp() {
+                let dailyXp = 0;
+
+                if (this.expectedDailies() >= 3) dailyXp = 9000;
+                else if (this.expectedDailies() >= 2) dailyXp = 6000;
+                else if (this.expectedDailies() >= 1) dailyXp = 3000;
+                else return 0;
+
+                return (dailyXp * this.expectedPlayDays()) / 7;
+            },
+            expectedWeeklies() {
+                return parseInt(this.expected_weeklies);
+            },
+            expectedDailyWeekliesXp() {
+                return (this.expectedWeeklies() * 5000) / 7;
+            },
+            expectedDailyTiers() {
+                return this.expectedDailyXp() / 10000;
+            },
+            expectedDailyMatchXp() {
+                return ((this.expectedDailyMatches() * this.expectedMatchXp()) * this.expectedPlayDays()) / 7;
+            },
+            expectedDailyXp() {
+                return this.expectedDailyMatchXp() + this.expectedDailyDailiesXp() + this.expectedDailyWeekliesXp();
+            },
+            expectedXp() {
+                return this.expectedDailyXp() * this.remainingDays();
+            },
+            expectedDailyPercent() {
+                return (this.expectedDailyXp() / 800000) * 100;
+            },
 
             //expected weekly earn rate
-            expected_weekly_tiers: '',
-            expected_weekly_xp: '',
-            expected_weekly_percent: '',
+            expectedWeeklyTiers() {
+                return this.expectedDailyTiers() * 7;
+            },
+            expectedWeeklyXp() {
+                return this.expectedDailyXp() * 7;
+            },
+            expectedWeeklyPercent() {
+                return this.expectedDailyPercent() * 7;
+            },
 
             //expected finish
-            expected_will_finish: false,
-            expected_spare_days: '',
-            expected_tiers: '',
+            expectedWillFinish() {
+                return this.expectedTiers() >= 80;
+            },
+            expectedDays() {
+                return 800000 / this.expectedDailyXp();
+            },
+            expectedSpareDays() {
+                let required = 80 * 10000;
+                let have = this.currentXp();
+                let need = required - have;
+                let expecting = this.expectedXp();
+                let extra = expecting - need;
+                return extra / this.expectedDailyXp();
+            },
+            expectedTiers() {
+                let expecting = this.currentXp() + this.expectedXp();
+                return Math.floor(expecting / 10000);
+            },
 
             //expected prestige
-            expected_will_prestige: false,
-            expected_prestige_tiers: '',
-            expected_prestige_titles: '',
+            expectedWillPrestige() {
+                return this.expectedTiers() > 80;
+            },
+            expectedPrestigeTiers() {
+                let have = this.currentXp();
+                let expecting = this.expectedXp();
+                let total = have + expecting;
+                return Math.min(Math.floor(total / 10000) - 80, 200 - 80);
+            },
+            expectedPrestigeTitles() {
+                let extraTiers = this.expectedPrestigeTiers();
+                return this.titlesFromTiers(extraTiers + 80);
+            },
 
             //expected fail
-            expected_will_fail: false,
-            expected_spare_tiers: '',
-            expected_spare_tiers_cost: '',
-            expected_spare_tiers_cost_usd: '',
+            expectedWillFail() {
+                return this.expectedTiers() < 80;
+            },
+            expectedSpareTiers() {
+                let required = 80 * 10000;
+                let have = this.currentXp();
+                let need = required - have;
+                let expecting = this.expectedXp();
+                let missing = need - expecting;
+                return Math.ceil(missing / 10000);
+            },
+            expectedSpareTiersCoins() {
+                return this.expectedSpareTiers() * 200;
+            },
+            expectedSpareTiersUsd() {
+                return this.expectedSpareTiersCoins() / 100;
+            },
 
             //coins rate
-            days_per_battle_pass: '',
-            days_per_legendary: '',
+            expectedBattlePassDays() {
+                return (1000 / this.coinsFromWeeklies(this.expectedWeeklies())) * 7;
+            },
+            expectedLegendaryDays() {
+                return (2000 / this.coinsFromWeeklies(this.expectedWeeklies())) * 7;
+            },
 
             titlesFromTiers(tiers) {
                 if (tiers >= 200) return 8;
@@ -242,6 +345,13 @@ document.addEventListener('alpine:init', () => {
                 else if (tiers >= 85) return 1;
                 else return 0;
             },
+
+            coinsFromWeeklies(weeklies) {
+                if (weeklies >= 11) return 60;
+                else if (weeklies >= 8) return 50;
+                else if (weeklies >= 4) return 30;
+                else return 0;
+            }
         }
     })
 })
