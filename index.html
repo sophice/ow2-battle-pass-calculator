@@ -13,186 +13,203 @@
         gtag('config', 'G-F869CLWZY4');
     </script>
     <title>Overwatch 2 Battle Pass Calculator</title>
+    <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="./style.css">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
 </head>
 <body>
+<div x-data="overwatch">
+    <h1>
+        <img src="logo.webp" style="max-width:240px; position: relative; top:3px;" alt="Overwatch 2"/>
+        Battle Pass Calculator
+    </h1>
 
-<h1>
-    <img src="logo.webp" style="max-width:240px; position: relative; top:3px;" alt="Overwatch 2"/>
-    Battle Pass Calculator
-</h1>
-
-<label>What is your current battle pass tier?
-    <input type="text" name="current_tier" onkeyup="App.onInput();"/>
-    (max 80)</label><br/>
-<label>How much XP have you earned towards the current tier?
-    <input type="text" name="current_tier_xp" onkeyup="App.onInput();"/>
-    (max 10,000)</label><br/>
-<label>How many weeklies will you do each week?
-    <input type="text" name="expected_weeklies" onkeyup="App.onInput();"/></label><br/>
-<label>How many days per week will you play?
-    <input type="text" name="expected_play_days" onkeyup="App.onInput();"/></label><br/>
-<label>On days that you play, how may dailies will you do?
-    <input type="text" name="expected_dailies" onkeyup="App.onInput();"/></label><br/>
-<label>On days that you play, how many matches will you complete?
-    <input type="text" name="expected_daily_matches" onkeyup="App.onInput();"/></label><br/>
-<label>What is your average match XP including all bonuses?
-    <input type="text" name="expected_match_xp" onkeyup="App.onInput();"/></label><br/>
-<br/>
-
-<button type="button" onclick="App.onInput()">Update</button>
-<button type="button" class="dark" onclick="App.reset()">Reset</button>
-<br/>
-<br/>
-
-<h2>Your progress so far</h2>
-<span title="Your current progress in this season's battle pass">
-    Progress:
-    <span class="highlight" id="progress_days">0 days</span>,
-    <span class="highlight" id="progress_tiers">0 tiers</span>,
-    <span class="highlight" id="progress_xp">0 XP</span>,
-    <span class="highlight" id="progress_percent">0%</span>
-</span>
-<br/>
-<span title="How much work you have left to do to complete this season's battle pass">
-    Remaining:
-    <span class="highlight" id="remaining_days">0 days</span>,
-    <span class="highlight" id="remaining_tiers">0 tiers</span>,
-    <span class="highlight" id="remaining_xp">0 XP</span>,
-    <span class="highlight" id="remaining_percent">0%</span>
-</span>
-<br/>
-<br/>
-
-<h2>Minimum needed to finish</h2>
-<span title="How much you will need to earn per day for the rest of this season to complete the battle pass on time">
-    Daily goal:
-    <span class="highlight" id="daily_goal_tiers">0 tiers</span>,
-    <span class="highlight" id="daily_goal_xp">0 XP</span>,
-    <span class="highlight" id="daily_goal_percent">0%</span>
-</span>
-<br/>
-<span title="How much you will need to earn per week for the rest of this season to complete the battle pass on time">
-    Weekly goal:
-    <span class="highlight" id="weekly_goal_tiers">0 tiers</span>,
-    <span class="highlight" id="weekly_goal_xp">0 XP</span>,
-    <span class="highlight" id="weekly_goal_percent">0%</span>
-</span>
-<br/>
-<br/>
-
-<h2>Projected finish</h2>
-<p>These are based on how fast you've been progressing through tiers so far.</p>
-<span title="How much you have been earning per day, on average, so far this season">
-    Daily average earnings:
-    <span class="highlight" id="daily_average_tiers">0 tiers</span>,
-    <span class="highlight" id="daily_average_xp">0 XP</span>,
-    <span class="highlight" id="daily_average_percent">0%</span>
-</span>
-<br/>
-<span title="How much you have been earning per week, on average, so far this season">
-    Weekly average earnings:
-    <span class="highlight" id="weekly_average_tiers">0 tiers</span>,
-    <span class="highlight" id="weekly_average_xp">0 XP</span>,
-    <span class="highlight" id="weekly_average_percent">0%</span>
-</span>
-<br/>
-<span id="prompt_projected_finish" style="display: none;"
-      title="How early you will finish the battle pass based on your current rate of progress">
-    You would finish the battle pass with
-    <span class="highlight" id="projected_spare_days">0 days</span>
-    to spare, and you would earn enough XP for
-    <span class="highlight" id="projected_tiers">0 tiers</span>
+    <label>What is your current battle pass tier?
+        <input type="text" x-model="current_tier"/>
+        (max 80)</label><br/>
+    <label>How much XP have you earned towards the current tier?
+        <input type="text" x-model="current_tier_xp"/>
+        (max 10,000)</label><br/>
+    <label>How many weeklies will you do each week?
+        <input type="text" x-model="expected_weeklies"/></label><br/>
+    <label>How many days per week will you play?
+        <input type="text" x-model="expected_play_days"/></label><br/>
+    <label>On days that you play, how may dailies will you do?
+        <input type="text" x-model="expected_dailies"/></label><br/>
+    <label>On days that you play, how many matches will you complete?
+        <input type="text" x-model="expected_daily_matches"/></label><br/>
+    <label>What is your average match XP including all bonuses?
+        <input type="text" x-model="expected_match_xp"/></label><br/>
     <br/>
-</span>
-<span id="prompt_projected_prestige_tiers" style="display:none;"
-      title="How many prestige tiers and titles you will earn based on your current rate of progress.">
-    Your
-    <span class="highlight" id="projected_prestige_tiers">0 prestige tiers</span>,
-    would reward you with
-    <span class="highlight" id="projected_prestige_titles">0 prestige titles</span>
-</span>
-<span id="prompt_projected_spare_tiers" style="display: none;"
-      title="How many tiers you will fail to complete based on your current progress">
-    You would fall
-    <span class="highlight" id="projected_spare_tiers">0 tiers</span>
-    short of finishing the battle pass<br/>
-    Buying your remaining tiers at the end would cost
-    <span class="highlight" id="projected_spare_tiers_cost">0 coins</span>
-    (<span class="highlight" id="projected_spare_tiers_cost_usd">$0 USD</span>)
+
+    <button type="button" class="dark" @click="reset()">Reset</button>
     <br/>
-</span>
-<br/>
-<br/>
-
-<h2>Expected finish</h2>
-<p>These are based on how many weeklies/dailies/matches you plan on doing in the future.</p>
-<span title="How much you will earn per day based on your planned matches/dailies/weeklies">
-    Expected daily gains:
-    <span class="highlight" id="expected_daily_tiers">0 tiers</span>,
-    <span class="highlight" id="expected_daily_xp">0 XP</span>,
-    <span class="highlight" id="expected_daily_percent">0%</span>
-</span>
-<br/>
-<span title="How much you will earn per week based on your planned matches/dailies/weeklies">
-    Expected weekly gains:
-    <span class="highlight" id="expected_weekly_tiers">0 tiers</span>,
-    <span class="highlight" id="expected_weekly_xp">0 XP</span>,
-    <span class="highlight" id="expected_weekly_percent">0%</span>
-</span>
-<br/>
-<span id="prompt_expected_finish" style="display: none;"
-      title="How early you will finish the battle pass based on your future expected gains">
-    You would finish the battle pass with
-    <span class="highlight" id="expected_spare_days">0 days</span>
-    to spare, and you would earn enough XP for
-    <span class="highlight" id="expected_tiers">0 tiers</span>
     <br/>
-</span>
-<span id="prompt_expected_prestige_tiers" style="display:none;"
-      title="How many prestige tiers and titles you will earn based on your current rate of progress.">
-    Your
-    <span class="highlight" id="expected_prestige_tiers">0 prestige tiers</span>,
-    would reward you with
-    <span class="highlight" id="expected_prestige_titles">0 titles</span>
-</span>
-<span id="prompt_expected_spare_tiers" style="display: none;"
-      title="How many tiers you will fail to complete based on your current progress">
-    You would fall
-    <span class="highlight" id="expected_spare_tiers">0 tiers</span>
-    short of finishing the battle pass<br/>
-    Buying your remaining tiers at the end would cost
-    <span class="highlight" id="expected_spare_tiers_cost">0 coins</span>
-    (<span class="highlight" id="expected_spare_tiers_cost_usd">$0 USD</span>)
+
+    <h2>Your progress so far</h2>
+    <span title="Your current progress in this season's battle pass">
+        Progress:
+        <span class="highlight" x-text="currentDay().$round(1).$localize()+' days'">0 days</span>,
+        <span class="highlight" x-text="currentCompletedTier()+' tiers'">0 tiers</span>,
+        <span class="highlight" x-text="currentXp().$localize()+' XP'">0 XP</span>,
+        <span class="highlight" x-text="currentPercent().$round(1)+'%'">0%</span>
+    </span>
     <br/>
-</span>
-<br/>
-<br/>
+    <span title="How much work you have left to do to complete this season's battle pass">
+        Remaining:
+        <span class="highlight" x-text="remainingDays().$round(1)+' days'">0 days</span>,
+        <span class="highlight" x-text="remainingTiers()+' tiers'">0 tiers</span>,
+        <span class="highlight" x-text="remainingXp().$localize()+' XP'">0 XP</span>,
+        <span class="highlight" x-text="remainingPercent().$round(1)+'%'">0%</span>
+    </span>
+    <br/>
+    <br/>
 
-<h2>Coin earnings</h2>
-<span title="How frequently you will be able to buy a battle pass">
-    You will earn the 1,000 <img src="coin.webp" style="max-width:25px; position: relative; top:6px;" alt="Coin"/> necessary to buy a battle pass every
-    <span class="highlight" id="days_per_battle_pass">0 days</span>
-</span>
-<br/>
-<span title="How frequently you will be able to buy a legendary skin">
-    You will earn the 2,000 <img src="coin.webp" style="max-width:25px; position: relative; top:6px;" alt="Coin"/> necessary to buy a legendary skin every
-    <span class="highlight" id="days_per_legendary">0 days</span>
-</span>
-<br/>
-<br/>
+    <h2>Minimum needed to finish</h2>
+    <span title="How much you will need to earn per day for the rest of this season to complete the battle pass on time">
+        Daily goal:
+        <span class="highlight" x-text="minimumDailyTiers().$round(1)+' tiers'">0 tiers</span>,
+        <span class="highlight" x-text="minimumDailyXp().$round().$localize()+' XP'">0 XP</span>,
+        <span class="highlight" x-text="minimumDailyPercent().$round(1)+'%'">0%</span>
+    </span>
+    <br/>
+    <span title="How much you will need to earn per week for the rest of this season to complete the battle pass on time">
+        Weekly goal:
+        <span class="highlight" x-text="minimumWeeklyTiers().$round(1)+' tiers'">0 tiers</span>,
+        <span class="highlight" x-text="minimumWeeklyXp().$round().$localize()+' XP'">0 XP</span>,
+        <span class="highlight" x-text="minimumWeeklyPercent().$round(1)+'%'">0%</span>
+    </span>
+    <br/>
+    <br/>
 
-<h1>About</h1>
+    <h2>Projected finish</h2>
+    <p>These are based on how fast you've been progressing through tiers so far.</p>
+    <span title="How much you have been earning per day, on average, so far this season">
+        Daily average earnings:
+        <span class="highlight" x-text="projectedDailyTiers().$round(1)+' tiers'">0 tiers</span>,
+        <span class="highlight" x-text="projectedDailyXp().$round().$localize()+' XP'">0 XP</span>,
+        <span class="highlight" x-text="projectedDailyPercent().$round(1)+'%'">0%</span>
+    </span>
+    <br/>
+    <span title="How much you have been earning per week, on average, so far this season">
+        Weekly average earnings:
+        <span class="highlight" x-text="projectedWeeklyTiers().$round(1)+' tiers'">0 tiers</span>,
+        <span class="highlight" x-text="projectedWeeklyXp().$round().$localize()+' XP'">0 XP</span>,
+        <span class="highlight" x-text="projectedWeeklyPercent().$round(1)+'%'">0%</span>
+    </span>
+    <br/>
+    <span x-show="projectedWillFinish()" style="display: none;"
+          title="How early you will finish the battle pass based on your current rate of progress">
+        You would finish the battle pass in
+        <span class="highlight" x-text="projectedDays().$round(1)+' days'">0 days</span>
+        with
+        <span class="highlight" x-text="projectedSpareDays().$round(1)+' days'">0 days</span>
+        to spare
+        <br/>
+    </span>
+    <span x-show="projectedWillFinish()" style="display: none;"
+          title="How early you will finish the battle pass based on your current rate of progress">
+        You would earn enough XP for
+        <span class="highlight" x-text="projectedTiers().$floor()+' tiers'">0 tiers</span>
+        <br/>
+    </span>
+    <span x-show="projectedWillPrestige()" style="display:none;"
+          title="How many prestige tiers and titles you will earn based on your current rate of progress.">
+        Your
+        <span class="highlight" x-text="projectedPrestigeTiers()+' prestige tiers'">0 prestige tiers</span>
+        would reward you with
+        <span class="highlight" x-text="projectedPrestigeTitles()+' prestige titles'">0 prestige titles</span>
+    </span>
+    <span x-show="projectedWillFail()" style="display: none;"
+          title="How many tiers you will fail to complete based on your current progress">
+        You would fall
+        <span class="highlight" x-text="projectedSpareTiers().$floor(1)+' tiers'">0 tiers</span>
+        short of finishing the battle pass<br/>
+        Buying your remaining tiers at the end would cost
+        <span class="highlight" x-text="projectedSpareTiersCoins().$ceil().$localize()+' coins'">0 coins</span>
+        (<span class="highlight" x-text="'$'+projectedSpareTiersDollars().$currency()+' USD'">$0 USD</span>)
+        <br/>
+    </span>
+    <br/>
+    <br/>
 
-This is a free tool I made for fun. Contribute feedback, bugs, ideas, code to
-<a href="https://github.com/sophice/ow2-battle-pass-calculator">sophice/ow2-battle-pass-calculator</a>!
+    <h2>Expected finish</h2>
+    <p>These are based on how many weeklies/dailies/matches you plan on doing in the future.</p>
+    <span title="How much you will earn per day based on your planned matches/dailies/weeklies">
+        Expected daily gains:
+        <span class="highlight" x-text="expectedDailyTiers().$round(1)+' tiers'">0 tiers</span>,
+        <span class="highlight" x-text="expectedDailyXp().$round().$localize()+' XP'">0 XP</span>,
+        <span class="highlight" x-text="expectedDailyPercent().$round(1)+'%'">0%</span>
+    </span>
+    <br/>
+    <span title="How much you will earn per week based on your planned matches/dailies/weeklies">
+        Expected weekly gains:
+        <span class="highlight" x-text="expectedWeeklyTiers().$round(1)+' tiers'">0 tiers</span>,
+        <span class="highlight" x-text="expectedWeeklyXp().$round().$localize()+' XP'">0 XP</span>,
+        <span class="highlight" x-text="expectedWeeklyPercent().$round(1)+'%'">0%</span>
+    </span>
+    <br/>
+    <span x-show="expectedWillFinish()" style="display: none;"
+          title="How early you will finish the battle pass based on your future expected gains">
+        You would finish the battle pass in
+        <span class="highlight" x-text="expectedDays().$round(1)+' days'">0 days</span>
+        with
+        <span class="highlight" x-text="expectedSpareDays().$round(1)+' days'">0 days</span>
+        to spare
+        <br/>
+    </span>
+    <span x-show="expectedWillFinish()" style="display: none;">
+        You would earn enough XP for
+        <span class="highlight" x-text="expectedTiers().$round(1)+' tiers'">0 tiers</span>
+        <br/>
+    </span>
+    <span x-show="expectedWillPrestige()" style="display:none;"
+          title="How many prestige tiers and titles you will earn based on your current rate of progress.">
+        Your
+        <span class="highlight" x-text="expectedPrestigeTiers().$floor()+' prestige tiers'">0 prestige tiers</span>
+        would reward you with
+        <span class="highlight" x-text="expectedPrestigeTitles().$floor()+' prestige titles'">0 prestige titles</span>
+    </span>
+    <span x-show="expectedWillFail()" style="display: none;"
+          title="How many tiers you will fail to complete based on your current progress">
+        You would fall
+        <span class="highlight" x-text="expectedSpareTiers()+' tiers'">0 tiers</span>
+        short of finishing the battle pass<br/>
+        Buying your remaining tiers at the end would cost
+        <span class="highlight" x-text="expectedSpareTiersCoins().$localize()+' coins'">0 coins</span>
+        (<span class="highlight" x-text="'$'+expectedSpareTiersUsd().$currency()+' USD'">$0 USD</span>)
+        <br/>
+    </span>
+    <br/>
+    <br/>
 
-<script src="./overwatch.js"></script>
-<script src="./app.js"></script>
-<script type="text/javascript">
-    App.start();
-</script>
+    <h2>Expected coins</h2>
+    <span title="How frequently you will be able to buy a battle pass">
+        You will earn the 1,000 <img src="coin.webp" style="max-width:25px; position: relative; top:6px;" alt="Coin"/> necessary to buy a battle pass every
+        <span class="highlight" x-text="expectedBattlePassDays().$ceil()+' days'">0 days</span>
+    </span>
+    <br/>
+    <span title="How frequently you will be able to buy a legendary skin">
+        You will earn the 2,000 <img src="coin.webp" style="max-width:25px; position: relative; top:6px;" alt="Coin"/> necessary to buy a legendary skin every
+        <span class="highlight" x-text="expectedLegendaryDays().$ceil()+' days'">0 days</span>
+    </span>
+    <br/>
+    <br/>
+
+    <h1>About</h1>
+
+    <p>
+        This is a free tool I made for fun. Contribute feedback, bugs, ideas, code to
+        <a href="https://github.com/sophice/ow2-battle-pass-calculator">sophice/ow2-battle-pass-calculator</a>!
+    </p>
+    <p>
+        Note: If you have any issues, try a full reresh of the page (Ctrl+F5) to be sure you have the latest version.
+    </p>
+
+</div>
+
+<script src="./alpine.js"></script>
 
 </body>
 </html>
