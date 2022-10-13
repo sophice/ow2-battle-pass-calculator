@@ -115,6 +115,7 @@ class App {
         document.getElementById('prompt_projected_prestige_tiers').style.display = 'none';
         document.getElementById('prompt_projected_spare_tiers').style.display = 'none';
         if (Overwatch.projectedSpareDays() >= 0) {
+            document.getElementById('projected_tiers').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}).format(Math.floor(Overwatch.projectedTiers())) + ' tiers';
             document.getElementById('projected_spare_days').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}).format(Math.floor(Overwatch.projectedSpareDays())) + ' days';
             document.getElementById('prompt_projected_finish').style.display = 'inline';
             if (Overwatch.projectedPrestigeTiers() >= 0) {
@@ -134,6 +135,7 @@ class App {
         document.getElementById('prompt_expected_prestige_tiers').style.display = 'none';
         document.getElementById('prompt_expected_spare_tiers').style.display = 'none';
         if (Overwatch.expectedSpareDays() >= 0) {
+            document.getElementById('expected_tiers').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}).format(Math.floor(Overwatch.expectedTiers())) + ' tiers';
             document.getElementById('expected_spare_days').innerText = new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}).format(Math.floor(Overwatch.expectedSpareDays())) + ' days';
             document.getElementById('prompt_expected_finish').style.display = 'inline';
             if (Overwatch.expectedPrestigeTiers() >= 0) {

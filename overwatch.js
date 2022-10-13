@@ -170,6 +170,11 @@ class Overwatch {
         return this.expectedDailyXp() * this.remainingDays();
     }
 
+    static projectedTiers() {
+        let expecting = this.currentXp() + (this.dailyAverageXp() * this.remainingDays());
+        return Math.floor(expecting / 10000);
+    }
+
     static projectedSpareDays() {
         let required = 80 * 10000;
         let have = this.currentXp();
@@ -206,6 +211,11 @@ class Overwatch {
     static projectedPrestigeTierTitles() {
         let extraTiers = this.projectedPrestigeTiers();
         return this.titlesFromTiers(extraTiers + 80);
+    }
+
+    static expectedTiers() {
+        let expecting = this.currentXp() + this.expectedXp();
+        return Math.floor(expecting / 10000);
     }
 
     static expectedSpareDays() {
