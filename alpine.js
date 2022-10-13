@@ -92,13 +92,13 @@ document.addEventListener('alpine:init', () => {
                 return (new Date() - this.seasonStart()) / 86400000;
             },
             currentTier() {
-                return parseInt(this.current_tier);
+                return parseInt(this.current_tier || 0);
             },
             currentCompletedTier() {
                 return Math.max(this.currentTier() - 1, 0);
             },
             currentTierXp() {
-                return parseInt(this.current_tier_xp);
+                return parseInt(this.current_tier_xp || 0);
             },
             currentXp() {
                 return (this.currentCompletedTier() * 10000) + this.currentTierXp();
@@ -218,16 +218,16 @@ document.addEventListener('alpine:init', () => {
 
             //expected daily earn rate
             expectedDailyMatches() {
-                return parseInt(this.expected_daily_matches);
+                return parseInt(this.expected_daily_matches || 0);
             },
             expectedMatchXp() {
-                return parseInt(this.expected_match_xp);
+                return parseInt(this.expected_match_xp || 0);
             },
             expectedPlayDays() {
-                return parseInt(this.expected_play_days);
+                return parseInt(this.expected_play_days || 0);
             },
             expectedDailies() {
-                return parseInt(this.expected_dailies);
+                return parseInt(this.expected_dailies || 0);
             },
             expectedDailyDailiesXp() {
                 let dailyXp = 0;
@@ -240,7 +240,7 @@ document.addEventListener('alpine:init', () => {
                 return (dailyXp * this.expectedPlayDays()) / 7;
             },
             expectedWeeklies() {
-                return parseInt(this.expected_weeklies);
+                return parseInt(this.expected_weeklies || 0);
             },
             expectedDailyWeekliesXp() {
                 return (this.expectedWeeklies() * 5000) / 7;
