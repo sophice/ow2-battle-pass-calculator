@@ -34,9 +34,9 @@ class App {
     //load values from storage to Overwatch
     static loadOverwatch() {
         for (let [key, fallback] of Object.entries(this.inputs)) {
-            let value = localStorage.getItem(key.toString());
-            if (value === null) Overwatch[key] = fallback;
-            else Overwatch[key] = value;
+            let value = parseInt(localStorage.getItem(key.toString()));
+            if (value === null || isNaN(value)) value = fallback;
+            Overwatch[key] = value;
         }
     }
 
@@ -45,9 +45,7 @@ class App {
         for (let [key, fallback] of Object.entries(this.inputs)) {
             let value = parseInt(document.getElementsByName(key)[0].value);
             if (value === null || isNaN(value)) value = fallback;
-            console.log('setting Overwatch.' + key + ' = ' + value);
             Overwatch[key] = value;
-            console.log('confirming Overwatch.' + key + ' = ' + Overwatch[key]);
         }
     }
 
