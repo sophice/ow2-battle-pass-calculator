@@ -78,3 +78,22 @@ input[type="text"] {
 input:focus {
     outline: none !important;
 }
+
+/** input layout **/
+form {
+    display: table;
+}
+
+form p {
+    display: table-row;
+}
+
+form label {
+    display: table-cell;
+}
+
+form input {
+    display: table-cell;
+    margin-left: 30px;
+    margin-bottom: 6px;
+}
