@@ -64,6 +64,7 @@ document.addEventListener('alpine:init', () => {
             expected_dailies: this.$persist(3),
             expected_daily_matches: this.$persist(5),
             expected_match_xp: this.$persist(500),
+            tab: this.$persist('all'),
 
             //reset
             reset() {
@@ -74,6 +75,20 @@ document.addEventListener('alpine:init', () => {
                 this.expected_dailies = 3;
                 this.expected_daily_matches = 5;
                 this.expected_match_xp = 500;
+            },
+
+            //tabs
+            currentTab() {
+                return this.tab;
+            },
+            tabSelected(...tabs) {
+                for (const tab of tabs) {
+                    if (tab === this.currentTab()) return true;
+                }
+                return false;
+            },
+            selectTab(tab) {
+                this.tab = tab;
             },
 
             //season
