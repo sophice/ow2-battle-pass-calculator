@@ -124,8 +124,8 @@
             Tiers earned: <span class="highlight" x-text="projectedTiers().$floor()+' tiers'">0 tiers</span>
         </li>
         <li x-show="projectedWillFinish()" title="When you would finish">
-            Finished in: <span class="highlight" x-text="projectedDays().$round(1)+' days'">0 days</span>
-            with <span class="highlight" x-text="projectedSpareDays().$round(1)+' days'">0 days</span> to spare
+            Finished in: <span class="highlight" x-text="projectedDays().$ceil()+' days'">0 days</span>
+            with <span class="highlight" x-text="projectedSpareDays().$floor()+' days'">0 days</span> to spare
         </li>
         <li x-show="projectedWillPrestige()" title="What prestige you would earn">
             Prestige earned:
@@ -164,8 +164,8 @@
             Tiers earned: <span class="highlight" x-text="expectedTiers().$round(1)+' tiers'">0 tiers</span>
         </li>
         <li x-show="expectedWillFinish()" title="When you would finish">
-            Finished in: <span class="highlight" x-text="expectedDays().$round(1)+' days'">0 days</span>
-            with <span class="highlight" x-text="expectedSpareDays().$round(1)+' days'">0 days</span> to spare
+            Finished in: <span class="highlight" x-text="expectedDays().$ceil()+' days'">0 days</span>
+            with <span class="highlight" x-text="expectedSpareDays().$floor()+' days'">0 days</span> to spare
         </li>
         <li x-show="expectedWillPrestige()" title="What prestige you would earn">
             Prestige earned:

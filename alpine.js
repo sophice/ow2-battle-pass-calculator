@@ -277,12 +277,10 @@ document.addEventListener('alpine:init', () => {
                 return this.expectedTiers() >= 80;
             },
             expectedDays() {
-                return 800000 / this.expectedDailyXp();
+                return 63 - this.expectedSpareDays();
             },
             expectedSpareDays() {
-                let required = 80 * 10000;
-                let have = this.currentXp();
-                let need = required - have;
+                let need = 800000 - this.currentXp();
                 let expecting = this.expectedXp();
                 let extra = expecting - need;
                 return extra / this.expectedDailyXp();
