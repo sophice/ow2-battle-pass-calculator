@@ -3,22 +3,36 @@
     src: url("./config.otf") format("opentype");
 }
 
+html {
+    font-family: 'Config', serif;
+    font-size: 16px;
+    line-height: 2em;
+    letter-spacing: 0.06em;
+}
+
 body {
     background: radial-gradient(31.74% 3046.23% at 50% 49.81%, #242a42 0, #121524 100%);
     color: #fff;
-    font-family: 'Config', serif;
-    line-height: 28px;
-    letter-spacing: 1px;
+}
+
+h1 {
+    font-size: 2.2em;
+}
+
+h2 {
+    font-size: 1.6em;
 }
 
 button {
     font-family: 'Config', serif;
-    line-height: 28px;
-    letter-spacing: 1px;
+    font-size: 1.2em;
+    line-height: 2em;
+    letter-spacing: 0.06em;
     background-color: #dc5d17;
-    border-radius: 2px;
+    border-radius: 3px;
     border: none;
     color: #fff;
+    padding: 0.1em 0.6em 0.1em 0.6em;
 }
 
 button.dark {
@@ -35,13 +49,15 @@ span.highlight {
 
 input[type="text"] {
     font-family: 'Config', serif;
-    line-height: 22px;
-    letter-spacing: 1px;
-    padding-left: 5px;
-    width:50px;
+    font-size: 1.1em;
+    line-height: 1.6em;
+    letter-spacing: 0.05em;
+    padding: 0.001em 0.6em 0.001em 0.6em;
+    width: 3.5em;
     color: #fff;
     background-color: #4b5e81;
     border: 0;
+    border-radius: 3px;
     outline: 0;
 }
 
