@@ -29,31 +29,31 @@
     <form>
         <p title="The current tier you are working on">
             <label for="current_tier">Current tier</label>
-            <input id="current_tier" type="text" x-model="current_tier"/> (max 80)
+            <input id="current_tier" type="text" x-model="current_tier" inputmode="numeric"/> (max 80)
         </p>
         <p title="How much XP you have already earned towards the current tier">
             <label for="current_tier_xp">XP towards current tier</label>
-            <input id="current_tier_xp" type="text" x-model="current_tier_xp"/> (max 10,000)
+            <input id="current_tier_xp" type="text" x-model="current_tier_xp" inputmode="numeric"/> (max 10,000)
         </p>
         <p title="How many weekly challenges you will complete each week">
             <label for="expected_weeklies">Weeklies earned each week</label>
-            <input id="expected_weeklies" type="text" x-model="expected_weeklies"/> (max 11)
+            <input id="expected_weeklies" type="text" x-model="expected_weeklies" inputmode="numeric"/> (max 11)
         </p>
         <p title="How many days you will play each week">
             <label for="expected_play_days">Days played each week</label>
-            <input id="expected_play_days" type="text" x-model="expected_play_days"/>
+            <input id="expected_play_days" type="text" x-model="expected_play_days" inputmode="numeric"/>
         </p>
         <p title="Each day you play, how many dailies will you earn">
             <label for="expected_dailies">Dailies earned per day played</label>
-            <input id="expected_dailies" type="text" x-model="expected_dailies"/>
+            <input id="expected_dailies" type="text" x-model="expected_dailies" inputmode="numeric"/>
         </p>
         <p title="Each day you play, how many matches will you complete">
             <label for="expected_daily_matches">Matches completed per day played</label>
-            <input id="expected_daily_matches" type="text" x-model="expected_daily_matches"/>
+            <input id="expected_daily_matches" type="text" x-model="expected_daily_matches" inputmode="numeric"/>
         </p>
         <p title="How much XP do you earn on average per match">
             <label for="expected_match_xp">Average match XP</label>
-            <input id="expected_match_xp" type="text" x-model="expected_match_xp"/>
+            <input id="expected_match_xp" type="text" x-model="expected_match_xp" inputmode="numeric"/>
         </p>
         <br/>
         <button type="button" class="dark" @click="reset()">Reset</button>
