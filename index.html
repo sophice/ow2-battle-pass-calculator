@@ -119,7 +119,7 @@
     <span x-show="projectedWillPrestige()" style="display:none;"
           title="How many prestige tiers and titles you will earn based on your current rate of progress.">
         Your
-        <span class="highlight" x-text="projectedPrestigeTiers()+' prestige tiers'">0 prestige tiers</span>
+        <span class="highlight" x-text="projectedPrestigeTiers().$floor()+' prestige tiers'">0 prestige tiers</span>
         would reward you with
         <span class="highlight" x-text="projectedPrestigeTitles()+' prestige titles'">0 prestige titles</span>
     </span>
