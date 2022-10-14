@@ -327,11 +327,23 @@ document.addEventListener('alpine:init', () => {
             },
 
             //coins rate
+            expectedDailyCoins() {
+                return this.expectedWeeklyCoins() / 7;
+            },
+            expectedWeeklyCoins() {
+                return this.coinsFromWeeklies(this.expectedWeeklies());
+            },
+            expectedSeasonalCoins() {
+                return this.expectedWeeklyCoins() * 9;
+            },
+            expectedCoins() {
+                return this.remainingDays() * this.expectedDailyCoins();
+            },
             expectedBattlePassDays() {
-                return (1000 / this.coinsFromWeeklies(this.expectedWeeklies())) * 7;
+                return 1000 / this.expectedDailyCoins();
             },
             expectedLegendaryDays() {
-                return (2000 / this.coinsFromWeeklies(this.expectedWeeklies())) * 7;
+                return 2000 / this.expectedDailyCoins();
             },
 
             titlesFromTiers(tiers) {

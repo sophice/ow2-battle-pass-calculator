@@ -85,6 +85,7 @@
     </ul>
 
     <h2>Minimum needed to finish</h2>
+    <p>The minimum you need to do to finish on time.</p>
     <ul>
         <li>
             <span title="Minimum daily effort to finish">
@@ -145,7 +146,7 @@
     </ul>
 
     <h2>Expected finish</h2>
-    <p>Based on how many weeklies/dailies/matches you plan on doing from now on.</p>
+    <p>Based on how many challenges and matches you plan on doing from now on.</p>
     <ul>
         <li title="Your daily pace going forward">
             Daily pace:
@@ -185,15 +186,25 @@
     </ul>
 
     <h2>Expected coins</h2>
+    <p>Based on how many weeklies you plan on doing from now on.</p>
     <ul>
+        <li title="How many coins you will still earn this season">
+            This season:
+            <span class="highlight" x-text="expectedCoins().$floor().$localize()+' more coins'">0 more coins</span>
+        </li>
+        <li title="Your coin earning pace">
+            Pace:
+            <span class="highlight" x-text="expectedSeasonalCoins().$floor().$localize()+' coins'">0 coins</span> per
+            season,
+            <span class="highlight" x-text="expectedDailyCoins().$floor()+' coins'">0 coins</span> daily,
+            <span class="highlight" x-text="expectedWeeklyCoins().$floor()+' coins'">0 coins</span> weekly
+        </li>
         <li title="How frequently you will be able to buy a battle pass">
-            You will earn 1,000 <img src="coin.webp" style="max-width:25px; position: relative; top:6px;" alt="Coin"/>
-            for a battle pass every
+            You will earn 1,000 coins for a battle pass every
             <span class="highlight" x-text="expectedBattlePassDays().$ceil()+' days'">0 days</span>
         </li>
         <li title="How frequently you will be able to buy a legendary skin">
-            You will earn 2,000 <img src="coin.webp" style="max-width:25px; position: relative; top:6px;" alt="Coin"/>
-            for a legendary skin every
+            You will earn 2,000 for a legendary skin every
             <span class="highlight" x-text="expectedLegendaryDays().$ceil()+' days'">0 days</span>
         </li>
     </ul>
