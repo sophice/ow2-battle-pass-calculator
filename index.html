@@ -27,33 +27,33 @@
     </h1>
 
     <label>
-        What is your current battle pass tier?
+        Current tier:
         <input type="text" x-model="current_tier"/>
         (max 80)
     </label><br/>
     <label>
-        How much XP have you earned towards the current tier?
+        XP towards current tier:
         <input type="text" x-model="current_tier_xp"/>
         (max 10,000)
     </label><br/>
     <label>
-        How many weeklies will you do each week?
+        Weeklies per week:
         <input type="text" x-model="expected_weeklies"/>
     </label><br/>
     <label>
-        How many days per week will you play?
+        Days played per week:
         <input type="text" x-model="expected_play_days"/>
     </label><br/>
     <label>
-        On days that you play, how may dailies will you do?
+        Dailies per day played:
         <input type="text" x-model="expected_dailies"/>
     </label><br/>
     <label>
-        On days that you play, how many matches will you complete?
+        Matches per day played:
         <input type="text" x-model="expected_daily_matches"/>
     </label><br/>
     <label>
-        What is your average match XP including all bonuses?
+        Average match XP:
         <input type="text" x-model="expected_match_xp"/>
     </label><br/>
     <br/>
@@ -109,109 +109,90 @@
     <p>Based on your pace up to now.</p>
     <ul>
         <li title="Your daily pace up to now">
-            Daily average earnings:
+            Daily pace:
             <span class="highlight" x-text="projectedDailyTiers().$round(1)+' tiers'">0 tiers</span>,
             <span class="highlight" x-text="projectedDailyXp().$round().$localize()+' XP'">0 XP</span>,
             <span class="highlight" x-text="projectedDailyPercent().$round(1)+'%'">0%</span>
         </li>
         <li title="Your weekly pace up to now">
-            Weekly average earnings:
+            Weekly pace:
             <span class="highlight" x-text="projectedWeeklyTiers().$round(1)+' tiers'">0 tiers</span>,
             <span class="highlight" x-text="projectedWeeklyXp().$round().$localize()+' XP'">0 XP</span>,
             <span class="highlight" x-text="projectedWeeklyPercent().$round(1)+'%'">0%</span>
         </li>
-        <li x-show="projectedWillFinish()" title="When you would finish the battle pass">
-            You would finish the battle pass in
-            <span class="highlight" x-text="projectedDays().$round(1)+' days'">0 days</span>
-            with
-            <span class="highlight" x-text="projectedSpareDays().$round(1)+' days'">0 days</span>
-            to spare
-        </li>
         <li x-show="projectedWillFinish()" title="How many tiers you would earn">
-            You would earn enough XP for
-            <span class="highlight" x-text="projectedTiers().$floor()+' tiers'">0 tiers</span>
+            Tiers earned: <span class="highlight" x-text="projectedTiers().$floor()+' tiers'">0 tiers</span>
         </li>
-        <li x-show="projectedWillPrestige()" title="How many prestige tiers and titles you would earn">
-            Your
+        <li x-show="projectedWillFinish()" title="When you would finish">
+            Finished in: <span class="highlight" x-text="projectedDays().$round(1)+' days'">0 days</span>
+            with <span class="highlight" x-text="projectedSpareDays().$round(1)+' days'">0 days</span> to spare
+        </li>
+        <li x-show="projectedWillPrestige()" title="What prestige you would earn">
+            Prestige earned:
             <span class="highlight" x-text="projectedPrestigeTiers().$floor()+' prestige tiers'">
                 0 prestige tiers
-            </span>
-            would reward you with
+            </span>,
             <span class="highlight" x-text="projectedPrestigeTitles()+' prestige titles'">0 prestige titles</span>
         </li>
-        <li x-show="projectedWillFail()"
-            title="How many tiers you would fail to complete">
-            You would fall
-            <span class="highlight" x-text="projectedSpareTiers().$floor(1)+' tiers'">0 tiers</span>
-            short of finishing the battle pass
+        <li x-show="projectedWillFail()" title="How many tiers you would earn, and miss">
+            Tiers earned: <span class="highlight" x-text="projectedTiers().$floor()+' tiers'">0 tiers</span>,
+            <span class="highlight" x-text="projectedSpareTiers().$floor(1)+' tiers'">0 tiers</span> missed
         </li>
         <li x-show="projectedWillFail()" title="What it would cost to buy the rest">
-            Buying your remaining tiers at the end would cost
-            <span class="highlight" x-text="projectedSpareTiersCoins().$ceil().$localize()+' coins'">0 coins</span>
-            (<span class="highlight" x-text="'$'+projectedSpareTiersDollars().$currency()+' USD'">$0 USD</span>)
+            Cost to finish:
+            <span class="highlight" x-text="projectedSpareTiersCoins().$ceil().$localize()+' coins'">0 coins</span>,
+            <span class="highlight" x-text="'$'+projectedSpareTiersDollars().$currency()+' USD'">$0 USD</span>
         </li>
     </ul>
 
     <h2>Expected finish</h2>
     <p>Based on how many weeklies/dailies/matches you plan on doing from now on.</p>
     <ul>
-        <li title="How much you will earn per day based on your planned matches/dailies/weeklies">
-            Expected daily gains:
+        <li title="Your daily pace going forward">
+            Daily pace:
             <span class="highlight" x-text="expectedDailyTiers().$round(1)+' tiers'">0 tiers</span>,
             <span class="highlight" x-text="expectedDailyXp().$round().$localize()+' XP'">0 XP</span>,
             <span class="highlight" x-text="expectedDailyPercent().$round(1)+'%'">0%</span>
         </li>
-        <li title="How much you will earn per week based on your planned matches/dailies/weeklies">
-            Expected weekly gains:
+        <li title="Your weekly pace going forward">
+            Weekly pace:
             <span class="highlight" x-text="expectedWeeklyTiers().$round(1)+' tiers'">0 tiers</span>,
             <span class="highlight" x-text="expectedWeeklyXp().$round().$localize()+' XP'">0 XP</span>,
             <span class="highlight" x-text="expectedWeeklyPercent().$round(1)+'%'">0%</span>
         </li>
-        <li x-show="expectedWillFinish()"
-            title="How early you will finish the battle pass based on your future expected gains">
-            You would finish the battle pass in
-            <span class="highlight" x-text="expectedDays().$round(1)+' days'">0 days</span>
-            with
-            <span class="highlight" x-text="expectedSpareDays().$round(1)+' days'">0 days</span>
-            to spare
+        <li x-show="expectedWillFinish()" title="How many tiers you would earn">
+            Tiers earned: <span class="highlight" x-text="expectedTiers().$round(1)+' tiers'">0 tiers</span>
         </li>
-        <li x-show="expectedWillFinish()">
-            You would earn enough XP for
-            <span class="highlight" x-text="expectedTiers().$round(1)+' tiers'">0 tiers</span>
+        <li x-show="expectedWillFinish()" title="When you would finish">
+            Finished in: <span class="highlight" x-text="expectedDays().$round(1)+' days'">0 days</span>
+            with <span class="highlight" x-text="expectedSpareDays().$round(1)+' days'">0 days</span> to spare
         </li>
-        <li x-show="expectedWillPrestige()"
-            title="How many prestige tiers and titles you will earn based on your current rate of progress.">
-            Your
-            <span class="highlight" x-text="expectedPrestigeTiers().$floor()+' prestige tiers'">0 prestige tiers</span>
-            would reward you with
-            <span class="highlight"
-                  x-text="expectedPrestigeTitles().$floor()+' prestige titles'">0 prestige titles</span>
+        <li x-show="expectedWillPrestige()" title="What prestige you would earn">
+            Prestige earned:
+            <span class="highlight" x-text="expectedPrestigeTiers().$floor()+' prestige tiers'">0 prestige tiers</span>,
+            <span class="highlight" x-text="expectedPrestigeTitles().$floor()+' prestige titles'">
+                0 prestige titles
+            </span>
         </li>
-        <li x-show="expectedWillFail()"
-            title="How many tiers you will fail to complete based on your current progress">
-            You would fall
-            <span class="highlight" x-text="expectedSpareTiers()+' tiers'">0 tiers</span>
-            short of finishing the battle pass
+        <li x-show="expectedWillFail()" title="How many tiers you would earn, and miss">
+            Tiers earned: <span class="highlight" x-text="expectedTiers()+' tiers'">0 tiers</span>,
+            <span class="highlight" x-text="expectedSpareTiers().$floor(1)+' tiers'">0 tiers</span> missed
         </li>
         <li x-show="expectedWillFail()">
-            Buying your remaining tiers at the end would cost
-            <span class="highlight" x-text="expectedSpareTiersCoins().$localize()+' coins'">0 coins</span>
-            (<span class="highlight" x-text="'$'+expectedSpareTiersUsd().$currency()+' USD'">$0 USD</span>)
+            Cost to finish:
+            <span class="highlight" x-text="expectedSpareTiersCoins().$localize()+' coins'">0 coins</span>,
+            <span class="highlight" x-text="'$'+expectedSpareTiersUsd().$currency()+' USD'">$0 USD</span>
         </li>
     </ul>
 
     <h2>Expected coins</h2>
     <ul>
         <li title="How frequently you will be able to buy a battle pass">
-            You will earn the 1,000
-            <img src="coin.webp" style="max-width:25px; position: relative; top:6px;" alt="Coin"/>
-            necessary to buy a battle pass every
+            You will earn 1,000 <img src="coin.webp" style="max-width:25px; position: relative; top:6px;" alt="Coin"/> for a battle pass every
             <span class="highlight" x-text="expectedBattlePassDays().$ceil()+' days'">0 days</span>
         </li>
         <li title="How frequently you will be able to buy a legendary skin">
-            You will earn the 2,000
-            <img src="coin.webp" style="max-width:25px; position: relative; top:6px;" alt="Coin"/>
-            necessary to buy a legendary skin every
+            You will earn 2,000 <img src="coin.webp" style="max-width:25px; position: relative; top:6px;" alt="Coin"/> for a legendary skin every
             <span class="highlight" x-text="expectedLegendaryDays().$ceil()+' days'">0 days</span>
         </li>
     </ul>
