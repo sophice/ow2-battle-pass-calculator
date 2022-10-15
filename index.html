@@ -62,7 +62,6 @@
     <br/>
 
     <p class="tabs">
-        Show:
         <span @click="selectTab('all')" :class="{'selected':tabSelected('all')}">All</span> |
         <span @click="selectTab('progress')" :class="{'selected':tabSelected('progress')}">Progress</span> |
         <span @click="selectTab('goals')" :class="{'selected':tabSelected('goals')}">Goals</span> |
@@ -75,46 +74,69 @@
         <h2>Your progress so far</h2>
         <ul>
             <li>
-            <span title="Your current progress">
-                Progress:
-                <span class="highlight" x-text="currentDay().$round(1).$localize()+' days'">0 days</span>,
-                <span class="highlight" x-text="currentCompletedTier()+' tiers'">0 tiers</span>,
-                <span class="highlight" x-text="currentXp().$localize()+' XP'">0 XP</span>,
-                <span class="highlight" x-text="currentPercent().$round(1)+'%'">0%</span>
-            </span>
-                <br/>
+                <span title="Your current progress">
+                    Progress:
+                    <span class="highlight" x-text="currentDay().$round(1).$localize()+' days'">0 days</span>,
+                    <span class="highlight" x-text="currentCompletedTier()+' tiers'">0 tiers</span>,
+                    <span class="highlight" x-text="currentXp().$localize()+' XP'">0 XP</span>,
+                    <span class="highlight" x-text="currentPercent().$round(1)+'%'">0%</span>
+                </span>
             </li>
             <li>
-            <span title="Your remaining effort">
-                Remaining:
-                <span class="highlight" x-text="remainingDays().$round(1)+' days'">0 days</span>,
-                <span class="highlight" x-text="remainingTiers()+' tiers'">0 tiers</span>,
-                <span class="highlight" x-text="remainingXp().$localize()+' XP'">0 XP</span>,
-                <span class="highlight" x-text="remainingPercent().$round(1)+'%'">0%</span>
-            </span>
+                <span title="Your remaining effort">
+                    Remaining:
+                    <span class="highlight" x-text="remainingDays().$round(1)+' days'">0 days</span>,
+                    <span class="highlight" x-text="remainingTiers()+' tiers'">0 tiers</span>,
+                    <span class="highlight" x-text="remainingXp().$localize()+' XP'">0 XP</span>,
+                    <span class="highlight" x-text="remainingPercent().$round(1)+'%'">0%</span>
+                </span>
+            </li>
+            <li>
+                <span title="Your remaining effort to max prestige">
+                    Remaining for prestige:
+                    <span class="highlight" x-text="remainingPrestigeTiers()+' tiers'">0 tiers</span>,
+                    <span class="highlight" x-text="remainingPrestigeXp().$localize()+' XP'">0 XP</span>,
+                    <span class="highlight" x-text="remainingPrestigePercent().$round(1)+'%'">0%</span>
+                </span>
             </li>
         </ul>
     </div>
 
     <div x-show="tabSelected('all', 'goals')">
         <h2>Minimum needed to finish</h2>
-        <p>The minimum you need to do to finish on time.</p>
+        <p>The minimum you need to do to finish all tiers.</p>
         <ul>
             <li>
-            <span title="Minimum daily effort to finish">
-                Daily goal:
-                <span class="highlight" x-text="minimumDailyTiers().$round(1)+' tiers'">0 tiers</span>,
-                <span class="highlight" x-text="minimumDailyXp().$round().$localize()+' XP'">0 XP</span>,
-                <span class="highlight" x-text="minimumDailyPercent().$round(1)+'%'">0%</span>
-            </span>
+                <span title="Minimum daily effort to finish tier 80">
+                    Daily goal:
+                    <span class="highlight" x-text="minimumDailyTiers().$round(1)+' tiers'">0 tiers</span>,
+                    <span class="highlight" x-text="minimumDailyXp().$round().$localize()+' XP'">0 XP</span>,
+                    <span class="highlight" x-text="minimumDailyPercent().$round(1)+'%'">0%</span>
+                </span>
             </li>
             <li>
-            <span title="Minimum weekly effort to finish">
-                Weekly goal:
-                <span class="highlight" x-text="minimumWeeklyTiers().$round(1)+' tiers'">0 tiers</span>,
-                <span class="highlight" x-text="minimumWeeklyXp().$round().$localize()+' XP'">0 XP</span>,
-                <span class="highlight" x-text="minimumWeeklyPercent().$round(1)+'%'">0%</span>
-            </span>
+                <span title="Minimum weekly effort to finish tier 80">
+                    Weekly goal:
+                    <span class="highlight" x-text="minimumWeeklyTiers().$round(1)+' tiers'">0 tiers</span>,
+                    <span class="highlight" x-text="minimumWeeklyXp().$round().$localize()+' XP'">0 XP</span>,
+                    <span class="highlight" x-text="minimumWeeklyPercent().$round(1)+'%'">0%</span>
+                </span>
+            </li>
+            <li>
+                <span title="Minimum daily effort to finish prestige">
+                    Daily goal for prestige:
+                    <span class="highlight" x-text="minimumDailyPrestigeTiers().$round(1)+' tiers'">0 tiers</span>,
+                    <span class="highlight" x-text="minimumDailyPrestigeXp().$round().$localize()+' XP'">0 XP</span>,
+                    <span class="highlight" x-text="minimumDailyPrestigePercent().$round(1)+'%'">0%</span>
+                </span>
+            </li>
+            <li>
+                <span title="Minimum weekly effort to finish prestige">
+                    Weekly goal for prestige:
+                    <span class="highlight" x-text="minimumWeeklyPrestigeTiers().$round(1)+' tiers'">0 tiers</span>,
+                    <span class="highlight" x-text="minimumWeeklyPrestigeXp().$round().$localize()+' XP'">0 XP</span>,
+                    <span class="highlight" x-text="minimumWeeklyPrestigePercent().$round(1)+'%'">0%</span>
+                </span>
             </li>
         </ul>
     </div>

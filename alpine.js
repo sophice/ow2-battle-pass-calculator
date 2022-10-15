@@ -94,6 +94,8 @@ document.addEventListener('alpine:init', () => {
             },
             selectTab(tab) {
                 this.tab = tab;
+
+                //not sure i like this, it might confuse people that don't realize it's on, leaving it disabled for now
                 //window.location.hash = this.tab;
             },
 
@@ -135,11 +137,20 @@ document.addEventListener('alpine:init', () => {
             remainingTiers() {
                 return 80 - this.currentCompletedTier();
             },
+            remainingPrestigeTiers() {
+                return 200 - this.currentCompletedTier();
+            },
             remainingXp() {
                 return (80 * 10000) - this.currentXp();
             },
+            remainingPrestigeXp() {
+                return (200 * 10000) - this.currentXp();
+            },
             remainingPercent() {
                 return (this.remainingTiers() / 80) * 100;
+            },
+            remainingPrestigePercent() {
+                return (this.remainingPrestigeTiers() / 200) * 100;
             },
 
             //minimum daily
@@ -162,6 +173,28 @@ document.addEventListener('alpine:init', () => {
             },
             minimumWeeklyPercent() {
                 return this.minimumDailyPercent() * 7;
+            },
+
+            //minimum daily for prestige
+            minimumDailyPrestigeTiers() {
+                return this.remainingPrestigeTiers() / this.remainingDays();
+            },
+            minimumDailyPrestigeXp() {
+                return this.remainingPrestigeXp() / this.remainingDays();
+            },
+            minimumDailyPrestigePercent() {
+                return this.remainingPrestigePercent() / this.remainingDays();
+            },
+
+            //minimum weekly for prestige
+            minimumWeeklyPrestigeTiers() {
+                return this.minimumDailyPrestigeTiers() * 7;
+            },
+            minimumWeeklyPrestigeXp() {
+                return this.minimumDailyPrestigeXp() * 7;
+            },
+            minimumWeeklyPrestigePercent() {
+                return this.minimumDailyPrestigePercent() * 7;
             },
 
             //projected daily earn rate
