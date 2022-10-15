@@ -1,3 +1,4 @@
+/** font settings **/
 @font-face {
     font-family: Config;
     src: url("./config.otf") format("opentype");
@@ -42,6 +43,7 @@ button {
     font-size: 1.2em;
     line-height: 2em;
     letter-spacing: 0.06em;
+
     background-color: #dc5d17;
     border-radius: 3px;
     border: none;
@@ -79,9 +81,21 @@ input:focus {
     outline: none !important;
 }
 
+hr {
+    color: #666;
+}
+
 /** input layout **/
 form {
     display: table;
+}
+
+div.form {
+    /** background **/
+    background-color: rgba(200, 200, 200, 0.1);
+    padding: 1em;
+    border-radius: 6px;
+    display: inline-block;
 }
 
 form p {
@@ -99,12 +113,28 @@ form input {
 }
 
 /** tabs **/
-p.tabs span {
+div.tabs {
+    background-color: rgba(200, 200, 200, 0.1);
+    padding: 1em;
+    border-radius: 6px;
+    display: inline-block;
+}
+
+div.tabs span {
     cursor: pointer;
 }
 
-p.tabs span.selected {
+div.tabs span.selected {
     background-color: #dc5d17;
     padding: 0.4em 0.6em 0.4em 0.6em;
     border-radius: 3px;
+}
+
+/** about section **/
+div.about {
+    color: #666;
+}
+
+div.about a {
+    filter: brightness(70%);
 }

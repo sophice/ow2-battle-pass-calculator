@@ -26,51 +26,53 @@
         Battle Pass Calculator
     </h1>
 
-    <form>
-        <p title="The current tier you are working on">
-            <label for="current_tier">Current tier</label>
-            <input id="current_tier" type="text" x-model="current_tier" inputmode="numeric"/> (max 80)
-        </p>
-        <p title="How much XP you have already earned towards the current tier">
-            <label for="current_tier_xp">XP towards current tier</label>
-            <input id="current_tier_xp" type="text" x-model="current_tier_xp" inputmode="numeric"/> (max 10,000)
-        </p>
-        <p title="How many weekly challenges you will complete each week">
-            <label for="expected_weeklies">Weeklies earned each week</label>
-            <input id="expected_weeklies" type="text" x-model="expected_weeklies" inputmode="numeric"/> (max 11)
-        </p>
-        <p title="How many days you will play each week">
-            <label for="expected_play_days">Days played each week</label>
-            <input id="expected_play_days" type="text" x-model="expected_play_days" inputmode="numeric"/>
-        </p>
-        <p title="Each day you play, how many dailies will you earn">
-            <label for="expected_dailies">Dailies earned per day played</label>
-            <input id="expected_dailies" type="text" x-model="expected_dailies" inputmode="numeric"/>
-        </p>
-        <p title="Each day you play, how many matches will you complete">
-            <label for="expected_daily_matches">Matches completed per day played</label>
-            <input id="expected_daily_matches" type="text" x-model="expected_daily_matches" inputmode="numeric"/>
-        </p>
-        <p title="How much XP do you earn on average per match">
-            <label for="expected_match_xp">Average match XP</label>
-            <input id="expected_match_xp" type="text" x-model="expected_match_xp" inputmode="numeric"/>
-        </p>
-        <br/>
-        <button type="button" class="dark" @click="reset()">Reset</button>
-    </form>
-
+    <div class="form">
+        <form>
+            <p title="The current tier you are working on">
+                <label for="current_tier">Current tier</label>
+                <input id="current_tier" type="text" x-model="current_tier" inputmode="numeric"/> (max 80)
+            </p>
+            <p title="How much XP you have already earned towards the current tier">
+                <label for="current_tier_xp">XP towards current tier</label>
+                <input id="current_tier_xp" type="text" x-model="current_tier_xp" inputmode="numeric"/> (max 10,000)
+            </p>
+            <p title="How many weekly challenges you will complete each week">
+                <label for="expected_weeklies">Weeklies earned each week</label>
+                <input id="expected_weeklies" type="text" x-model="expected_weeklies" inputmode="numeric"/> (max 11)
+            </p>
+            <p title="How many days you will play each week">
+                <label for="expected_play_days">Days played each week</label>
+                <input id="expected_play_days" type="text" x-model="expected_play_days" inputmode="numeric"/>
+            </p>
+            <p title="Each day you play, how many dailies will you earn">
+                <label for="expected_dailies">Dailies earned per day played</label>
+                <input id="expected_dailies" type="text" x-model="expected_dailies" inputmode="numeric"/>
+            </p>
+            <p title="Each day you play, how many matches will you complete">
+                <label for="expected_daily_matches">Matches completed per day played</label>
+                <input id="expected_daily_matches" type="text" x-model="expected_daily_matches" inputmode="numeric"/>
+            </p>
+            <p title="How much XP do you earn on average per match">
+                <label for="expected_match_xp">Average match XP</label>
+                <input id="expected_match_xp" type="text" x-model="expected_match_xp" inputmode="numeric"/>
+            </p>
+            <br/>
+            <button type="button" class="dark" @click="reset()">Reset</button>
+        </form>
+    </div>
+    <br/>
     <br/>
 
-    <p class="tabs">
+    <div class="tabs">
         <span @click="selectTab('all')" :class="{'selected':tabSelected('all')}">All</span> |
         <span @click="selectTab('progress')" :class="{'selected':tabSelected('progress')}">Progress</span> |
         <span @click="selectTab('goals')" :class="{'selected':tabSelected('goals')}">Goals</span> |
         <span @click="selectTab('projected')" :class="{'selected':tabSelected('projected')}">Projected</span> |
         <span @click="selectTab('expected')" :class="{'selected':tabSelected('expected')}">Expected</span> |
         <span @click="selectTab('coins')" :class="{'selected':tabSelected('coins')}">Coins</span>
-    </p>
+    </div>
 
-    <div x-show="tabSelected('all', 'progress')">
+    <div class="section" x-show="tabSelected('all', 'progress')">
         <h2>Your progress so far</h2>
         <ul>
             <li>
@@ -102,7 +104,7 @@
         </ul>
     </div>
 
-    <div x-show="tabSelected('all', 'goals')">
+    <div class="section" x-show="tabSelected('all', 'goals')">
         <h2>Minimum needed to finish</h2>
         <p>The minimum you need to do to finish all tiers.</p>
         <ul>
@@ -141,7 +143,7 @@
         </ul>
     </div>
 
-    <div x-show="tabSelected('all', 'projected')">
+    <div class="section" x-show="tabSelected('all', 'projected')">
         <h2>Projected finish</h2>
         <p>Based on your pace up to now.</p>
         <ul>
@@ -183,7 +185,7 @@
         </ul>
     </div>
 
-    <div x-show="tabSelected('all', 'expected')">
+    <div class="section" x-show="tabSelected('all', 'expected')">
         <h2>Expected finish</h2>
         <p>Based on how many challenges and matches you plan on doing from now on.</p>
         <ul>
@@ -226,7 +228,7 @@
         </ul>
     </div>
 
-    <div x-show="tabSelected('all', 'coins')">
+    <div class="section" x-show="tabSelected('all', 'coins')">
         <h2>Expected coins</h2>
         <p>Based on how many weeklies you plan on doing from now on.</p>
         <ul>
@@ -253,16 +255,19 @@
         </ul>
     </div>
 
-    <h2>About</h2>
+    <div class="about">
+        <h2>About</h2>
 
-    <p>
-        This is a free tool I made for fun. Contribute feedback, bugs, ideas, code to
-        <a href="https://github.com/sophice/ow2-battle-pass-calculator">sophice/ow2-battle-pass-calculator</a>!
-    </p>
-    <p>
-        <span class="highlight">Note</span>: If you have any issues, try a full reresh of the page (Ctrl+F5) to be sure
-        you have the latest version.
-    </p>
+        <p>
+            This is a free tool I made for fun. Contribute feedback, bugs, ideas, code to
+            <a href="https://github.com/sophice/ow2-battle-pass-calculator">sophice/ow2-battle-pass-calculator</a>!
+        </p>
+        <p>
+            <span class="highlight">Note</span>: If you have any issues, try a full reresh of the page (Ctrl+F5) to be
+            sure
+            you have the latest version.
+        </p>
+    </div>
 
 </div>
 
