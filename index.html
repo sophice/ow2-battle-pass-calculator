@@ -33,28 +33,28 @@
                 <input id="current_tier" type="text" x-model="current_tier" inputmode="numeric"/> (max 80)
             </p>
             <p title="How much XP you have already earned towards the current tier">
-                <label for="current_tier_xp">XP towards current tier</label>
+                <label for="current_tier_xp">XP in current tier</label>
                 <input id="current_tier_xp" type="text" x-model="current_tier_xp" inputmode="numeric"/> (max 10,000)
             </p>
-            <p title="How many weekly challenges you will complete each week">
-                <label for="expected_weeklies">Weeklies earned each week</label>
-                <input id="expected_weeklies" type="text" x-model="expected_weeklies" inputmode="numeric"/> (max 11)
-            </p>
             <p title="How many days you will play each week">
-                <label for="expected_play_days">Days played each week</label>
+                <label for="expected_play_days">Days played per week</label>
                 <input id="expected_play_days" type="text" x-model="expected_play_days" inputmode="numeric"/>
             </p>
-            <p title="Each day you play, how many dailies will you earn">
-                <label for="expected_dailies">Dailies earned per day played</label>
+            <p title="Each day you play, how many daily challenges will you complete">
+                <label for="expected_dailies">Dailies per day played</label>
                 <input id="expected_dailies" type="text" x-model="expected_dailies" inputmode="numeric"/>
             </p>
             <p title="Each day you play, how many matches will you complete">
-                <label for="expected_daily_matches">Matches completed per day played</label>
+                <label for="expected_daily_matches">Matches per day played</label>
                 <input id="expected_daily_matches" type="text" x-model="expected_daily_matches" inputmode="numeric"/>
             </p>
             <p title="How much XP do you earn on average per match">
                 <label for="expected_match_xp">Average match XP</label>
                 <input id="expected_match_xp" type="text" x-model="expected_match_xp" inputmode="numeric"/>
+            </p>
+            <p title="How many weekly challenges you will complete each week">
+                <label for="expected_weeklies">Weeklies per week</label>
+                <input id="expected_weeklies" type="text" x-model="expected_weeklies" inputmode="numeric"/> (max 11)
             </p>
             <br/>
             <button type="button" class="dark" @click="reset()">Reset</button>
@@ -125,7 +125,7 @@
                 </span>
             </li>
             <li>
-                <span title="Minimum daily effort to finish prestige">
+                <span title="Minimum daily effort to finish tier 200">
                     Daily goal for prestige:
                     <span class="highlight" x-text="minimumDailyPrestigeTiers().$round(1)+' tiers'">0 tiers</span>,
                     <span class="highlight" x-text="minimumDailyPrestigeXp().$round().$localize()+' XP'">0 XP</span>,
@@ -133,7 +133,7 @@
                 </span>
             </li>
             <li>
-                <span title="Minimum weekly effort to finish prestige">
+                <span title="Minimum weekly effort to finish tier 200">
                     Weekly goal for prestige:
                     <span class="highlight" x-text="minimumWeeklyPrestigeTiers().$round(1)+' tiers'">0 tiers</span>,
                     <span class="highlight" x-text="minimumWeeklyPrestigeXp().$round().$localize()+' XP'">0 XP</span>,
@@ -169,10 +169,11 @@
             <li x-show="projectedWillPrestige()" title="What prestige you would earn">
                 Prestige earned:
                 <span class="highlight" x-text="projectedPrestigeTiers().$floor()+' prestige tiers'">
-                0 prestige tiers
-            </span>,
+                    0 prestige tiers
+                </span>,
                 <span class="highlight" x-text="projectedPrestigeTitles()+' prestige titles'">0 prestige titles</span>
             </li>
+            <!-- TODO: add "prestige missed" -->
             <li x-show="projectedWillFail()" title="How many tiers you would earn, and miss">
                 Tiers earned: <span class="highlight" x-text="projectedTiers().$floor()+' tiers'">0 tiers</span>,
                 <span class="highlight" x-text="projectedSpareTiers().$floor(1)+' tiers'">0 tiers</span> missed
@@ -210,12 +211,14 @@
             </li>
             <li x-show="expectedWillPrestige()" title="What prestige you would earn">
                 Prestige earned:
-                <span class="highlight"
-                      x-text="expectedPrestigeTiers().$floor()+' prestige tiers'">0 prestige tiers</span>,
+                <span class="highlight" x-text="expectedPrestigeTiers().$floor()+' prestige tiers'">
+                    0 prestige tiers
+                </span>,
                 <span class="highlight" x-text="expectedPrestigeTitles().$floor()+' prestige titles'">
-                0 prestige titles
-            </span>
+                    0 prestige titles
+                </span>
             </li>
+            <!-- TODO: add "prestige missed" -->
             <li x-show="expectedWillFail()" title="How many tiers you would earn, and miss">
                 Tiers earned: <span class="highlight" x-text="expectedTiers()+' tiers'">0 tiers</span>,
                 <span class="highlight" x-text="expectedSpareTiers().$floor(1)+' tiers'">0 tiers</span> missed
@@ -239,8 +242,7 @@
             <li title="Your coin earning pace">
                 Pace:
                 <span class="highlight" x-text="expectedSeasonalCoins().$floor().$localize()+' coins'">0 coins</span>
-                per
-                season,
+                per season,
                 <span class="highlight" x-text="expectedDailyCoins().$floor()+' coins'">0 coins</span> daily,
                 <span class="highlight" x-text="expectedWeeklyCoins().$floor()+' coins'">0 coins</span> weekly
             </li>
@@ -264,8 +266,7 @@
         </p>
         <p>
             <span class="highlight">Note</span>: If you have any issues, try a full reresh of the page (Ctrl+F5) to be
-            sure
-            you have the latest version.
+            sure you have the latest version.
         </p>
     </div>
 
