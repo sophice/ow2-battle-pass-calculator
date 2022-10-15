@@ -52,7 +52,6 @@ if (!Number.prototype.$currency) {
     };
 }
 
-
 document.addEventListener('alpine:init', () => {
     Alpine.data('overwatch', function () {
         return {
@@ -65,6 +64,12 @@ document.addEventListener('alpine:init', () => {
             expected_daily_matches: this.$persist(5),
             expected_match_xp: this.$persist(500),
             tab: this.$persist('all'),
+
+            init() {
+                if (window.location.hash) {
+                    this.selectTab(window.location.hash.substring(1));
+                }
+            },
 
             //reset
             reset() {
@@ -89,6 +94,7 @@ document.addEventListener('alpine:init', () => {
             },
             selectTab(tab) {
                 this.tab = tab;
+                //window.location.hash = this.tab;
             },
 
             //season
