@@ -34,7 +34,7 @@ h2 {
 }
 
 div.section p {
-    padding-left:1em;
+    padding-left: 1em;
 }
 
 body {
@@ -65,6 +65,14 @@ a {
 
 span.highlight {
     color: #dc5d17;
+}
+
+span.prestige {
+    color: #32e9ea;
+}
+
+span.coins {
+    color: #fadf86;
 }
 
 input[type="text"] {

@@ -241,9 +241,14 @@ document.addEventListener('alpine:init', () => {
             projectedWillPrestige() {
                 return this.projectedTiers() > 80;
             },
+            projectedWillFinishPrestige() {
+                return this.projectedPrestigeTiers() >= 120;
+            },
             projectedPrestigeDays() {
+                return 2000000 / this.projectedDailyXp();
             },
             projectedPrestigeSpareDays() {
+                return this.remainingDays() - this.projectedPrestigeDays();
             },
             projectedPrestigeTiers() {
                 let have = this.currentXp();
@@ -251,9 +256,15 @@ document.addEventListener('alpine:init', () => {
                 let total = have + projecting;
                 return Math.min((total / 10000) - 80, 120);
             },
+            projectedPrestigeTiersMissed() {
+                return 120 - this.projectedPrestigeTiers();
+            },
             projectedPrestigeTitles() {
                 let extraTiers = this.projectedPrestigeTiers();
                 return this.titlesFromTiers(extraTiers + 80);
+            },
+            projectedPrestigeTitlesMissed() {
+                return 8 - this.projectedPrestigeTitles();
             },
 
             //projected fail
@@ -348,15 +359,30 @@ document.addEventListener('alpine:init', () => {
             expectedWillPrestige() {
                 return this.expectedTiers() > 80;
             },
+            expectedWillFinishPrestige() {
+                return this.expectedPrestigeTiers() >= 120;
+            },
+            expectedPrestigeDays() {
+                return 2000000 / this.expectedDailyXp();
+            },
+            expectedPrestigeSpareDays() {
+                return this.remainingDays() - this.expectedPrestigeDays();
+            },
             expectedPrestigeTiers() {
                 let have = this.currentXp();
                 let expecting = this.expectedXp();
                 let total = have + expecting;
                 return Math.min(Math.floor(total / 10000) - 80, 200 - 80);
             },
+            expectedPrestigeTiersMissed() {
+                return 120 - this.expectedPrestigeTiers();
+            },
             expectedPrestigeTitles() {
                 let extraTiers = this.expectedPrestigeTiers();
                 return this.titlesFromTiers(extraTiers + 80);
+            },
+            expectedPrestigeTitlesMissed() {
+                return 8 - this.expectedPrestigeTitles();
             },
 
             //expected fail

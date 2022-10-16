@@ -26,6 +26,8 @@
         Battle Pass Calculator
     </h1>
 
+    <h2>Season 1</h2>
+
     <div class="form">
         <form>
             <p title="The current tier you are working on">
@@ -96,9 +98,9 @@
             <li>
                 <span title="Your remaining effort to max prestige">
                     Remaining for prestige:
-                    <span class="highlight" x-text="remainingPrestigeTiers()+' tiers'">0 tiers</span>,
-                    <span class="highlight" x-text="remainingPrestigeXp().$localize()+' XP'">0 XP</span>,
-                    <span class="highlight" x-text="remainingPrestigePercent().$round(1)+'%'">0%</span>
+                    <span class="prestige" x-text="remainingPrestigeTiers()+' tiers'">0 tiers</span>,
+                    <span class="prestige" x-text="remainingPrestigeXp().$localize()+' XP'">0 XP</span>,
+                    <span class="prestige" x-text="remainingPrestigePercent().$round(1)+'%'">0%</span>
                 </span>
             </li>
         </ul>
@@ -127,17 +129,17 @@
             <li>
                 <span title="Minimum daily effort to finish tier 200">
                     Daily goal for prestige:
-                    <span class="highlight" x-text="minimumDailyPrestigeTiers().$round(1)+' tiers'">0 tiers</span>,
-                    <span class="highlight" x-text="minimumDailyPrestigeXp().$round().$localize()+' XP'">0 XP</span>,
-                    <span class="highlight" x-text="minimumDailyPrestigePercent().$round(1)+'%'">0%</span>
+                    <span class="prestige" x-text="minimumDailyPrestigeTiers().$round(1)+' tiers'">0 tiers</span>,
+                    <span class="prestige" x-text="minimumDailyPrestigeXp().$round().$localize()+' XP'">0 XP</span>,
+                    <span class="prestige" x-text="minimumDailyPrestigePercent().$round(1)+'%'">0%</span>
                 </span>
             </li>
             <li>
                 <span title="Minimum weekly effort to finish tier 200">
                     Weekly goal for prestige:
-                    <span class="highlight" x-text="minimumWeeklyPrestigeTiers().$round(1)+' tiers'">0 tiers</span>,
-                    <span class="highlight" x-text="minimumWeeklyPrestigeXp().$round().$localize()+' XP'">0 XP</span>,
-                    <span class="highlight" x-text="minimumWeeklyPrestigePercent().$round(1)+'%'">0%</span>
+                    <span class="prestige" x-text="minimumWeeklyPrestigeTiers().$round(1)+' tiers'">0 tiers</span>,
+                    <span class="prestige" x-text="minimumWeeklyPrestigeXp().$round().$localize()+' XP'">0 XP</span>,
+                    <span class="prestige" x-text="minimumWeeklyPrestigePercent().$round(1)+'%'">0%</span>
                 </span>
             </li>
         </ul>
@@ -166,22 +168,34 @@
                 Finished in: <span class="highlight" x-text="projectedDays().$ceil()+' days'">0 days</span>
                 with <span class="highlight" x-text="projectedSpareDays().$floor()+' days'">0 days</span> to spare
             </li>
-            <li x-show="projectedWillPrestige()" title="What prestige you would earn">
+            <li x-show="projectedWillPrestige() && !projectedWillFinishPrestige()" title="What prestige you would earn">
                 Prestige earned:
-                <span class="highlight" x-text="projectedPrestigeTiers().$floor()+' prestige tiers'">
+                <span class="prestige" x-text="projectedPrestigeTiers().$floor()+' prestige tiers'">
                     0 prestige tiers
                 </span>,
-                <span class="highlight" x-text="projectedPrestigeTitles()+' prestige titles'">0 prestige titles</span>
+                <span class="prestige" x-text="projectedPrestigeTitles()+' prestige titles'">0 prestige titles</span>
             </li>
-            <!-- TODO: add "prestige missed" -->
+            <li x-show="projectedWillPrestige() && !projectedWillFinishPrestige()" title="What prestige you would miss">
+                Prestige missed:
+                <span class="prestige" x-text="projectedPrestigeTiersMissed().$ceil()+' prestige tiers'">
+                    0 prestige tiers
+                </span>,
+                <span class="prestige" x-text="projectedPrestigeTitlesMissed()+' prestige titles'">
+                    0 prestige titles
+                </span>
+            </li>
+            <li x-show="projectedWillFinishPrestige()" title="When you will finish prestige">
+                Prestige finished in: <span class="prestige" x-text="projectedPrestigeDays().$ceil()+' days'">0 days</span>
+                with <span class="prestige" x-text="projectedPrestigeSpareDays().$floor()+' days'">0 days</span> to spare
+            </li>
             <li x-show="projectedWillFail()" title="How many tiers you would earn, and miss">
                 Tiers earned: <span class="highlight" x-text="projectedTiers().$floor()+' tiers'">0 tiers</span>,
                 <span class="highlight" x-text="projectedSpareTiers().$floor(1)+' tiers'">0 tiers</span> missed
             </li>
             <li x-show="projectedWillFail()" title="What it would cost to buy the rest">
                 Cost to finish:
-                <span class="highlight" x-text="projectedSpareTiersCoins().$ceil().$localize()+' coins'">0 coins</span>,
-                <span class="highlight" x-text="'$'+projectedSpareTiersDollars().$currency()+' USD'">$0 USD</span>
+                <span class="coins" x-text="projectedSpareTiersCoins().$ceil().$localize()+' coins'">0 coins</span>,
+                <span class="coins" x-text="'$'+projectedSpareTiersDollars().$currency()+' USD'">$0 USD</span>
             </li>
         </ul>
     </div>
@@ -209,24 +223,34 @@
                 Finished in: <span class="highlight" x-text="expectedDays().$ceil()+' days'">0 days</span>
                 with <span class="highlight" x-text="expectedSpareDays().$floor()+' days'">0 days</span> to spare
             </li>
-            <li x-show="expectedWillPrestige()" title="What prestige you would earn">
+            <li x-show="expectedWillPrestige() && !expectedWillFinishPrestige()" title="What prestige you would earn">
                 Prestige earned:
-                <span class="highlight" x-text="expectedPrestigeTiers().$floor()+' prestige tiers'">
+                <span class="prestige" x-text="expectedPrestigeTiers().$floor()+' prestige tiers'">
                     0 prestige tiers
                 </span>,
-                <span class="highlight" x-text="expectedPrestigeTitles().$floor()+' prestige titles'">
+                <span class="prestige" x-text="expectedPrestigeTitles().$floor()+' prestige titles'">
                     0 prestige titles
                 </span>
             </li>
-            <!-- TODO: add "prestige missed" -->
+            <li x-show="expectedWillPrestige() && !expectedWillFinishPrestige()" title="What prestige you would miss">
+                Prestige missed:
+                <span class="prestige" x-text="expectedPrestigeTiersMissed().$ceil()+' prestige tiers'">
+                    0 prestige tiers
+                </span>,
+                <span class="prestige" x-text="expectedPrestigeTitlesMissed()+' prestige titles'">0 prestige titles</span>
+            </li>
+            <li x-show="expectedWillFinishPrestige()" title="When you will finish prestige">
+                Prestige finished in: <span class="prestige" x-text="expectedPrestigeDays().$ceil()+' days'">0 days</span>
+                with <span class="prestige" x-text="expectedPrestigeSpareDays().$floor()+' days'">0 days</span> to spare
+            </li>
             <li x-show="expectedWillFail()" title="How many tiers you would earn, and miss">
                 Tiers earned: <span class="highlight" x-text="expectedTiers()+' tiers'">0 tiers</span>,
                 <span class="highlight" x-text="expectedSpareTiers().$floor(1)+' tiers'">0 tiers</span> missed
             </li>
             <li x-show="expectedWillFail()">
                 Cost to finish:
-                <span class="highlight" x-text="expectedSpareTiersCoins().$localize()+' coins'">0 coins</span>,
-                <span class="highlight" x-text="'$'+expectedSpareTiersUsd().$currency()+' USD'">$0 USD</span>
+                <span class="coins" x-text="expectedSpareTiersCoins().$localize()+' coins'">0 coins</span>,
+                <span class="coins" x-text="'$'+expectedSpareTiersUsd().$currency()+' USD'">$0 USD</span>
             </li>
         </ul>
     </div>
@@ -237,22 +261,22 @@
         <ul>
             <li title="How many coins you will still earn this season">
                 This season:
-                <span class="highlight" x-text="expectedCoins().$floor().$localize()+' more coins'">0 more coins</span>
+                <span class="coins" x-text="expectedCoins().$floor().$localize()+' more coins'">0 more coins</span>
             </li>
             <li title="Your coin earning pace">
                 Pace:
-                <span class="highlight" x-text="expectedSeasonalCoins().$floor().$localize()+' coins'">0 coins</span>
+                <span class="coins" x-text="expectedSeasonalCoins().$floor().$localize()+' coins'">0 coins</span>
                 per season,
-                <span class="highlight" x-text="expectedDailyCoins().$floor()+' coins'">0 coins</span> daily,
-                <span class="highlight" x-text="expectedWeeklyCoins().$floor()+' coins'">0 coins</span> weekly
+                <span class="coins" x-text="expectedDailyCoins().$floor()+' coins'">0 coins</span> daily,
+                <span class="coins" x-text="expectedWeeklyCoins().$floor()+' coins'">0 coins</span> weekly
             </li>
             <li title="How frequently you will be able to buy a battle pass">
                 1,000 coins for a battle pass:
-                <span class="highlight" x-text="expectedBattlePassDays().$ceil()+' days'">0 days</span>
+                <span class="coins" x-text="expectedBattlePassDays().$ceil()+' days'">0 days</span>
             </li>
             <li title="How frequently you will be able to buy a legendary skin">
                 2,000 coins for a legendary skin:
-                <span class="highlight" x-text="expectedLegendaryDays().$ceil()+' days'">0 days</span>
+                <span class="coins" x-text="expectedLegendaryDays().$ceil()+' days'">0 days</span>
             </li>
         </ul>
     </div>
