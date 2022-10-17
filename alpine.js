@@ -138,11 +138,16 @@ document.addEventListener('alpine:init', () => {
                 return (Math.min(this.currentCompletedTier(), 80) / 200) * 100;
             },
             currentPrestigePercent() {
+                if (this.currentCompletedTier() < 80) return 0;
+                if (this.currentCompletedTier() >= 200) return 100;
                 if (this.currentCompletedTier() === 199 && this.currentXp() >= 10000) return 100;
-                return (Math.max(this.currentCompletedTier() - 80, 120) / 120) * 100;
+                return ((this.currentCompletedTier() - 80) / 120) * 100;
             },
             currentPrestigePercentBar() {
-                return (Math.max(this.currentCompletedTier() - 80, 120) / 200) * 100;
+                if (this.currentCompletedTier() < 80) return 0;
+                if (this.currentCompletedTier() >= 200) return 100;
+                if (this.currentCompletedTier() === 199 && this.currentXp() >= 10000) return 100;
+                return ((this.currentCompletedTier() - 80) / 200) * 100;
             },
 
             //remaining
@@ -253,7 +258,10 @@ document.addEventListener('alpine:init', () => {
             },
             projectedTiers() {
                 let expecting = this.currentXp() + (this.projectedDailyXp() * this.remainingDays());
-                return expecting / 10000;
+                let result = expecting / 10000;
+                if (result < 0) return 0;
+                if (result > 200) return 200;
+                return result;
             },
             projectedPercent() {
                 return (Math.min(this.projectedTiers(), 80) / 80) * 100;
@@ -384,7 +392,10 @@ document.addEventListener('alpine:init', () => {
             },
             expectedTiers() {
                 let expecting = this.currentXp() + this.expectedXp();
-                return Math.floor(expecting / 10000);
+                let result = Math.floor(expecting / 10000);
+                if (result < 0) return 0;
+                if (result > 200) return 200;
+                return result;
             },
             expectedPercent() {
                 return (Math.min(this.expectedTiers(), 80) / 80) * 100;
