@@ -58,20 +58,41 @@ document.addEventListener('alpine:init', () => {
             //inputs
             current_tier: this.$persist(1),
             current_tier_xp: this.$persist(0),
-            expected_weeklies: this.$persist(8),
             expected_play_days: this.$persist(5),
             expected_dailies: this.$persist(3),
             expected_daily_matches: this.$persist(5),
             expected_match_xp: this.$persist(500),
+            expected_weeklies: this.$persist(8),
             tab: this.$persist('all'),
 
             init() {
                 if (window.location.hash) {
-                    this.selectTab(window.location.hash.substring(1));
+                    const params = new URLSearchParams(window.location.hash.substring(1));
+                    if (params.has('t')) this.current_tier = params.get('t');
+                    if (params.has('x')) this.current_tier_xp = params.get('x');
+                    if (params.has('p')) this.expected_play_days = params.get('p');
+                    if (params.has('d')) this.expected_dailies = params.get('d');
+                    if (params.has('m')) this.expected_daily_matches = params.get('m');
+                    if (params.has('v')) this.expected_match_xp = params.get('v');
+                    if (params.has('w')) this.expected_weeklies = params.get('w');
                 }
             },
 
-            //reset
+            //buttons
+            share() {
+                const params = new URLSearchParams();
+                params.set('t', this.currentTier());
+                params.set('x', this.currentTierXp());
+                params.set('p', this.expectedPlayDays());
+                params.set('d', this.expectedDailies());
+                params.set('m', this.expectedDailyMatches());
+                params.set('v', this.expectedMatchXp());
+                params.set('w', this.expectedWeeklies());
+                let link = window.location.toString();
+                link = link.substring(0, link.length - window.location.hash.length);
+                link = link + '#' + params;
+                window.prompt('Here is your link!', link);
+            },
             reset() {
                 this.current_tier = 1;
                 this.current_tier_xp = 0;

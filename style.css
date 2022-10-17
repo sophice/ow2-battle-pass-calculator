@@ -53,6 +53,8 @@ button {
     border: none;
     color: #fff;
     padding: 0.1em 0.6em 0.1em 0.6em;
+
+    cursor: pointer;
 }
 
 button.dark {
