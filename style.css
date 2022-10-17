@@ -142,6 +142,41 @@ div.tabs span.selected {
     border-radius: 3px;
 }
 
+/** progress bars **/
+.progress {
+    margin-left: 1em;
+    width: 20em;
+
+    display: flex;
+    overflow: hidden;
+
+    background-color: rgba(200, 200, 200, 0.5);
+    border-radius: 3px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, .2);
+}
+
+.progress span {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    text-align: center;
+    white-space: nowrap;
+    transition: width 0.6s ease;
+
+    height: 1em;
+}
+
+.progress span.base {
+    color: black;
+    background-color: #dc5d17;
+}
+
+.progress span.prestige {
+    color: black;
+    background-color: #32e9ea;
+}
+
 /** about section **/
 div.about {
     color: #777;

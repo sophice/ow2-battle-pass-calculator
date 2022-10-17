@@ -127,17 +127,27 @@ document.addEventListener('alpine:init', () => {
                 return (this.currentCompletedTier() * 10000) + this.currentTierXp();
             },
             currentPercent() {
-                return (this.currentCompletedTier() / 80) * 100;
+                return (Math.min(this.currentCompletedTier(), 80) / 80) * 100;
+            },
+            currentPercentBar() {
+                return (Math.min(this.currentCompletedTier(), 80) / 200) * 100;
+            },
+            currentPrestigePercent() {
+                return (Math.max(this.currentCompletedTier() - 80, 0) / 120) * 100;
+            },
+            currentPrestigePercentBar() {
+                return (Math.max(this.currentCompletedTier() - 80, 0) / 200) * 100;
             },
 
             //remaining
             remainingDays() {
-                return (this.seasonEnd() - new Date()) / 86400000;
+                return Math.max((this.seasonEnd() - new Date()) / 86400000, 0);
             },
             remainingTiers() {
                 return 80 - this.currentCompletedTier();
             },
             remainingPrestigeTiers() {
+                if (this.currentCompletedTier() === 199 && this.currentTierXp() >= 10000) return 0;
                 return 200 - this.currentCompletedTier();
             },
             remainingXp() {
@@ -223,6 +233,9 @@ document.addEventListener('alpine:init', () => {
             projectedWillFinish() {
                 return this.projectedTiers() >= 80;
             },
+            projectedXp() {
+                return this.projectedDailyXp() * this.remainingDays();
+            },
             projectedDays() {
                 return 800000 / this.projectedDailyXp();
             },
@@ -236,6 +249,18 @@ document.addEventListener('alpine:init', () => {
                 let expecting = this.currentXp() + (this.projectedDailyXp() * this.remainingDays());
                 return expecting / 10000;
             },
+            projectedPercent() {
+                return (Math.min(this.projectedTiers(), 80) / 80) * 100;
+            },
+            projectedPercentBar() {
+                return (Math.min(this.projectedTiers(), 80) / 200) * 100;
+            },
+            projectedPrestigePercent() {
+                return (this.projectedPrestigeTiers() / 120) * 100;
+            },
+            projectedPrestigePercentBar() {
+                return (this.projectedPrestigeTiers() / 200) * 100;
+            },
 
             //projected prestige
             projectedWillPrestige() {
@@ -245,10 +270,11 @@ document.addEventListener('alpine:init', () => {
                 return this.projectedPrestigeTiers() >= 120;
             },
             projectedPrestigeDays() {
-                return 2000000 / this.projectedDailyXp();
+                return 63 - this.projectedPrestigeSpareDays();
             },
             projectedPrestigeSpareDays() {
-                return this.remainingDays() - this.projectedPrestigeDays();
+                let extra = this.projectedXp() - (2000000 - this.currentXp());
+                return Math.min(extra / this.projectedDailyXp(), 7 * 9);
             },
             projectedPrestigeTiers() {
                 let have = this.currentXp();
@@ -342,17 +368,29 @@ document.addEventListener('alpine:init', () => {
                 return this.expectedTiers() >= 80;
             },
             expectedDays() {
-                return 63 - this.expectedSpareDays();
+                return Math.max(63 - this.expectedSpareDays(), 0);
             },
             expectedSpareDays() {
                 let need = 800000 - this.currentXp();
                 let expecting = this.expectedXp();
                 let extra = expecting - need;
-                return extra / this.expectedDailyXp();
+                return Math.min(extra / this.expectedDailyXp(), 7 * 9);
             },
             expectedTiers() {
                 let expecting = this.currentXp() + this.expectedXp();
                 return Math.floor(expecting / 10000);
+            },
+            expectedPercent() {
+                return (Math.min(this.expectedTiers(), 80) / 80) * 100;
+            },
+            expectedPercentBar() {
+                return (Math.min(this.expectedTiers(), 80) / 200) * 100;
+            },
+            expectedPrestigePercent() {
+                return (this.expectedPrestigeTiers() / 120) * 100;
+            },
+            expectedPrestigePercentBar() {
+                return (this.expectedPrestigeTiers() / 200) * 100;
             },
 
             //expected prestige
@@ -363,10 +401,11 @@ document.addEventListener('alpine:init', () => {
                 return this.expectedPrestigeTiers() >= 120;
             },
             expectedPrestigeDays() {
-                return 2000000 / this.expectedDailyXp();
+                return 63 - this.expectedPrestigeSpareDays();
             },
             expectedPrestigeSpareDays() {
-                return this.remainingDays() - this.expectedPrestigeDays();
+                let extra = this.expectedXp() - (2000000 - this.currentXp());
+                return Math.min(extra / this.expectedDailyXp(), 7 * 9);
             },
             expectedPrestigeTiers() {
                 let have = this.currentXp();
