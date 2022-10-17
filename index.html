@@ -201,7 +201,7 @@
                 Tiers earned: <span class="highlight" x-text="projectedTiers().$floor()+' tiers'">0 tiers</span>
             </li>
             <li x-show="projectedWillFinish()" title="When you would finish">
-                Finished in: <span class="highlight" x-text="projectedDays().$ceil()+' days'">0 days</span>
+                Finished in: <span class="highlight" x-text="projectedDays().$ceil()+' more days'">0 more days</span>
                 with <span class="highlight" x-text="projectedSpareDays().$floor()+' days'">0 days</span> to spare
             </li>
             <li x-show="projectedWillPrestige() && !projectedWillFinishPrestige()" title="What prestige you would earn">
@@ -222,7 +222,7 @@
             </li>
             <li x-show="projectedWillFinishPrestige()" title="When you will finish prestige">
                 Prestige finished in:
-                <span class="prestige" x-text="projectedPrestigeDays().$ceil()+' days'">0 days</span>
+                <span class="prestige" x-text="projectedPrestigeDays().$ceil()+' more days'">0 more days</span>
                 with <span class="prestige" x-text="projectedPrestigeSpareDays().$floor()+' days'">0 days</span> to
                 spare
             </li>
@@ -266,7 +266,7 @@
                 Tiers earned: <span class="highlight" x-text="expectedTiers().$round(1)+' tiers'">0 tiers</span>
             </li>
             <li x-show="expectedWillFinish()" title="When you would finish">
-                Finished in: <span class="highlight" x-text="expectedDays().$ceil()+' days'">0 days</span>
+                Finished in: <span class="highlight" x-text="expectedDays().$ceil()+' more days'">0 more days</span>
                 with <span class="highlight" x-text="expectedSpareDays().$floor()+' days'">0 days</span> to spare
             </li>
             <li x-show="expectedWillPrestige() && !expectedWillFinishPrestige()" title="What prestige you would earn">
@@ -288,7 +288,7 @@
             </li>
             <li x-show="expectedWillFinishPrestige()" title="When you will finish prestige">
                 Prestige finished in:
-                <span class="prestige" x-text="expectedPrestigeDays().$ceil()+' days'">0 days</span> with
+                <span class="prestige" x-text="expectedPrestigeDays().$ceil()+' more days'">0 more days</span> with
                 <span class="prestige" x-text="expectedPrestigeSpareDays().$floor()+' days'">0 days</span> to spare
             </li>
             <li x-show="expectedWillFail()" title="How many tiers you would earn, and miss">

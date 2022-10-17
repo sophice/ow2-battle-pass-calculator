@@ -121,11 +121,13 @@ document.addEventListener('alpine:init', () => {
                 return result;
             },
             currentCompletedTier() {
-                if (this.current_tier > 200) return 200;
-                if (this.current_tier === 199 && this.current_tier_xp >= 10000) return 200;
+                if (this.currentTier() > 200) return 200;
+                if (this.currentTier() === 200 && this.currentTierXp() >= 10000) return 200;
                 return Math.max(this.currentTier() - 1, 0);
             },
             currentTierXp() {
+                if (this.current_tier_xp < 0) return 0;
+                if (this.current_tier_xp > 10000) return 10000;
                 return parseInt(this.current_tier_xp || 0);
             },
             currentXp() {
@@ -248,7 +250,7 @@ document.addEventListener('alpine:init', () => {
                 return this.projectedDailyXp() * this.remainingDays();
             },
             projectedDays() {
-                return 800000 / this.projectedDailyXp();
+                return (800000 / this.projectedDailyXp()) - this.currentDay();
             },
             projectedSpareDays() {
                 let need = 800000 - this.currentXp();
@@ -382,7 +384,7 @@ document.addEventListener('alpine:init', () => {
                 return this.expectedTiers() >= 80;
             },
             expectedDays() {
-                return Math.max(63 - this.expectedSpareDays(), 0);
+                return (800000 / this.expectedDailyXp()) - this.currentDay();
             },
             expectedSpareDays() {
                 let need = 800000 - this.currentXp();
