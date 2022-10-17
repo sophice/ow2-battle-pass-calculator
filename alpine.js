@@ -115,9 +115,14 @@ document.addEventListener('alpine:init', () => {
                 return (new Date() - this.seasonStart()) / 86400000;
             },
             currentTier() {
-                return parseInt(this.current_tier || 0);
+                let result = parseInt(this.current_tier || 0);
+                if (result < 1) return 1;
+                if (result > 200) return 200;
+                return result;
             },
             currentCompletedTier() {
+                if (this.current_tier > 200) return 200;
+                if (this.current_tier === 199 && this.current_tier_xp >= 10000) return 200;
                 return Math.max(this.currentTier() - 1, 0);
             },
             currentTierXp() {
@@ -134,10 +139,10 @@ document.addEventListener('alpine:init', () => {
             },
             currentPrestigePercent() {
                 if (this.currentCompletedTier() === 199 && this.currentXp() >= 10000) return 100;
-                return (Math.max(this.currentCompletedTier() - 80, 0) / 120) * 100;
+                return (Math.max(this.currentCompletedTier() - 80, 120) / 120) * 100;
             },
             currentPrestigePercentBar() {
-                return (Math.max(this.currentCompletedTier() - 80, 0) / 200) * 100;
+                return (Math.max(this.currentCompletedTier() - 80, 120) / 200) * 100;
             },
 
             //remaining

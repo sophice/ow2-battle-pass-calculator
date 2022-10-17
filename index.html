@@ -85,7 +85,7 @@
                   title="Prestige completion"></span>
         </div>
         <ul>
-            <li>
+            <li x-show="currentCompletedTier() < 200">
                 <span title="Your current progress">
                     Progress:
                     <span class="highlight" x-text="currentDay().$ceil().$localize()+' days'">0 days</span>,
