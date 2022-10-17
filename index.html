@@ -88,7 +88,7 @@
             <li x-show="currentCompletedTier() < 200">
                 <span title="Your current progress">
                     Progress:
-                    <span class="highlight" x-text="currentDay().$ceil().$localize()+' days'">0 days</span>,
+                    <span class="highlight" x-text="currentDay().$floor().$localize()+' days'">0 days</span>,
                     <span class="highlight" x-text="currentCompletedTier()+' tiers'">0 tiers</span>,
                     <span class="highlight" x-text="currentXp().$localize()+' XP'">0 XP</span>,
                     <span class="highlight" x-text="currentPercent().$round(1)+'%'">0%</span>
@@ -97,7 +97,7 @@
             <li x-show="remainingTiers() > 0">
                 <span title="Your remaining effort">
                     Remaining:
-                    <span class="highlight" x-text="remainingDays().$floor()+' days'">0 days</span>,
+                    <span class="highlight" x-text="remainingDays().$ceil()+' days'">0 days</span>,
                     <span class="highlight" x-text="remainingTiers()+' tiers'">0 tiers</span>,
                     <span class="highlight" x-text="remainingXp().$localize()+' XP'">0 XP</span>,
                     <span class="highlight" x-text="remainingPercent().$round(1)+'%'">0%</span>
