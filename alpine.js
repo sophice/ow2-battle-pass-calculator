@@ -250,13 +250,12 @@ document.addEventListener('alpine:init', () => {
                 return this.projectedDailyXp() * this.remainingDays();
             },
             projectedDays() {
-                return (800000 / this.projectedDailyXp()) - this.currentDay();
+                let result = (800000 / this.projectedDailyXp()) - this.currentDay();
+                if (result < 0) return 0;
+                return result;
             },
             projectedSpareDays() {
-                let need = 800000 - this.currentXp();
-                let projecting = this.projectedDailyXp() * this.remainingDays();
-                let extra = projecting - need;
-                return extra / this.projectedDailyXp();
+                return 63 - (this.currentDay() + this.projectedDays());
             },
             projectedTiers() {
                 let expecting = this.currentXp() + (this.projectedDailyXp() * this.remainingDays());
@@ -286,7 +285,7 @@ document.addEventListener('alpine:init', () => {
                 return this.projectedPrestigeTiers() >= 120;
             },
             projectedPrestigeDays() {
-                return 63 - this.projectedPrestigeSpareDays();
+                return (63 - this.projectedPrestigeSpareDays()) - this.currentDay();
             },
             projectedPrestigeSpareDays() {
                 let extra = this.projectedXp() - (2000000 - this.currentXp());
@@ -387,10 +386,7 @@ document.addEventListener('alpine:init', () => {
                 return (800000 / this.expectedDailyXp()) - this.currentDay();
             },
             expectedSpareDays() {
-                let need = 800000 - this.currentXp();
-                let expecting = this.expectedXp();
-                let extra = expecting - need;
-                return Math.min(extra / this.expectedDailyXp(), 7 * 9);
+                return 63 - (this.currentDay() + this.expectedDays());
             },
             expectedTiers() {
                 let expecting = this.currentXp() + this.expectedXp();
@@ -420,7 +416,7 @@ document.addEventListener('alpine:init', () => {
                 return this.expectedPrestigeTiers() >= 120;
             },
             expectedPrestigeDays() {
-                return 63 - this.expectedPrestigeSpareDays();
+                return (63 - this.expectedPrestigeSpareDays()) - this.currentDay();
             },
             expectedPrestigeSpareDays() {
                 let extra = this.expectedXp() - (2000000 - this.currentXp());
