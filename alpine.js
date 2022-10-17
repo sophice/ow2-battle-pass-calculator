@@ -133,6 +133,7 @@ document.addEventListener('alpine:init', () => {
                 return (Math.min(this.currentCompletedTier(), 80) / 200) * 100;
             },
             currentPrestigePercent() {
+                if (this.currentCompletedTier() === 199 && this.currentXp() >= 10000) return 100;
                 return (Math.max(this.currentCompletedTier() - 80, 0) / 120) * 100;
             },
             currentPrestigePercentBar() {
@@ -165,13 +166,13 @@ document.addEventListener('alpine:init', () => {
 
             //minimum daily
             minimumDailyTiers() {
-                return this.remainingTiers() / this.remainingDays();
+                return Math.max(this.remainingTiers() / this.remainingDays(), 0);
             },
             minimumDailyXp() {
-                return this.remainingXp() / this.remainingDays();
+                return Math.max(this.remainingXp() / this.remainingDays(), 0);
             },
             minimumDailyPercent() {
-                return this.remainingPercent() / this.remainingDays();
+                return Math.max(this.remainingPercent() / this.remainingDays(), 0);
             },
 
             //minimum weekly
