@@ -92,10 +92,10 @@
         <h2>Your progress so far</h2>
         <div class="progress">
             <span class="base" :style="{width:currentPercentBar()+'%'}"
-                  x-text="currentPercentBar() < 11 ? '' : currentPercent().$round()+'%'"
+                  x-text="currentPercentBar() < 11 ? '' : currentPercent().$floor()+'%'"
                   title="Battle pass completion"></span>
             <span class="prestige" :style="{width:currentPrestigePercentBar()+'%'}"
-                  x-text="currentPrestigePercentBar() < 11 ? '' : currentPrestigePercent().$round()+'%'"
+                  x-text="currentPrestigePercentBar() < 11 ? '' : currentPrestigePercent().$floor()+'%'"
                   title="Prestige completion"></span>
         </div>
         <ul>
@@ -192,10 +192,10 @@
         <p>Based on your pace up to now.</p>
         <div class="progress">
             <span class="base" :style="{width:projectedPercentBar()+'%'}"
-                  x-text="projectedPercentBar() < 11 ? '' : projectedPercent().$round()+'%'"
+                  x-text="projectedPercentBar() < 11 ? '' : projectedPercent().$floor()+'%'"
                   title="Battle pass completion"></span>
             <span class="prestige" :style="{width:projectedPrestigePercentBar()+'%'}"
-                  x-text="projectedPrestigePercentBar() < 11 ? '' : projectedPrestigePercent().$round()+'%'"
+                  x-text="projectedPrestigePercentBar() < 11 ? '' : projectedPrestigePercent().$floor()+'%'"
                   title="Prestige completion"></span>
         </div>
         <ul>
@@ -257,10 +257,10 @@
         <p>Based on how many challenges and matches you plan on doing from now on.</p>
         <div class="progress">
             <span class="base" :style="{width:expectedPercentBar()+'%'}"
-                  x-text="expectedPercentBar() < 11 ? '' : expectedPercent().$round()+'%'"
+                  x-text="expectedPercentBar() < 11 ? '' : expectedPercent().$floor()+'%'"
                   title="Battle pass completion"></span>
             <span class="prestige" :style="{width:expectedPrestigePercentBar()+'%'}"
-                  x-text="expectedPrestigePercentBar() < 11 ? '' : expectedPrestigePercent().$round()+'%'"
+                  x-text="expectedPrestigePercentBar() < 11 ? '' : expectedPrestigePercent().$floor()+'%'"
                   title="Prestige completion"></span>
         </div>
         <ul>
