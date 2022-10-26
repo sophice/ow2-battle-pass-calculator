@@ -154,6 +154,12 @@ document.addEventListener('alpine:init', () => {
             currentXp() {
                 return (this.currentCompletedTier() * 10000) + this.currentTierXp();
             },
+            currentMissingXp() {
+                return Math.max(800000 - this.currentXp(), 0);
+            },
+            currentMissingPrestigeXp() {
+                return Math.max(2000000 - this.currentXp(), 0);
+            },
             currentPercent() {
                 return (Math.min(this.currentCompletedTier(), 80) / 80) * 100;
             },
@@ -404,7 +410,7 @@ document.addEventListener('alpine:init', () => {
                 return this.expectedTiers() >= 80;
             },
             expectedDays() {
-                return (800000 / this.expectedDailyXp()) - this.currentDay();
+                return Math.max((this.currentMissingXp() / this.expectedDailyXp()) - this.currentDay(), 0);
             },
             expectedSpareDays() {
                 return 63 - (this.currentDay() + this.expectedDays());
