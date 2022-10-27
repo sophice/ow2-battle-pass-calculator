@@ -87,7 +87,7 @@ if (!Number.prototype.$limit) {
 }
 
 document.addEventListener('alpine:init', () => {
-    Alpine.data('overwatch', function () {
+    Alpine.data('app', function () {
         return {
             //inputs
             current_tier: this.$persist(1),
