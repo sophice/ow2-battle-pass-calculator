@@ -52,6 +52,40 @@ if (!Number.prototype.$currency) {
     };
 }
 
+if (!Number.prototype.$min) {
+    Number.prototype.$min = function (limit) {
+        if (limit < this) return limit;
+        return this;
+    };
+}
+
+if (!Number.prototype.$max) {
+    Number.prototype.$max = function (limit) {
+        if (limit > this) return limit;
+        return this;
+    };
+}
+
+if (!Number.prototype.$highest) {
+    Number.prototype.$highest = function (limit) {
+        return this.$min(limit);
+    };
+}
+
+if (!Number.prototype.$lowest) {
+    Number.prototype.$lowest = function (limit) {
+        return this.$max(limit);
+    };
+}
+
+if (!Number.prototype.$limit) {
+    Number.prototype.$limit = function (minimum, maximum) {
+        if (minimum !== null && this < minimum) return minimum;
+        if (maximum !== null && this > maximum) return maximum;
+        return this;
+    };
+}
+
 document.addEventListener('alpine:init', () => {
     Alpine.data('overwatch', function () {
         return {
@@ -143,16 +177,30 @@ document.addEventListener('alpine:init', () => {
             },
             currentCompletedTier() {
                 if (this.currentTier() > 200) return 200;
-                if (this.currentTier() === 200 && this.currentTierXp() >= 10000) return 200;
+                else if (this.currentTier() === 200 && this.currentTierXp() >= 250000) return 200;
+                else if (this.currentTier() > 175) return 175;
+                else if (this.currentTier() > 155) return 155;
+                else if (this.currentTier() > 135) return 135;
+                else if (this.currentTier() > 120) return 120;
+                else if (this.currentTier() > 105) return 105;
+                else if (this.currentTier() > 95) return 95;
+                else if (this.currentTier() > 85) return 85;
+                else if (this.currentTier() > 80) return 80;
+
                 return Math.max(this.currentTier() - 1, 0);
+            },
+            currentCompletedPrestigeTier() {
+                return Math.max(this.currentCompletedTier() - 80, 0);
             },
             currentTierXp() {
                 if (this.current_tier_xp < 0) return 0;
-                if (this.current_tier_xp > 10000) return 10000;
                 return parseInt(this.current_tier_xp || 0);
             },
             currentXp() {
                 return (this.currentCompletedTier() * 10000) + this.currentTierXp();
+            },
+            currentPrestigeXp() {
+                return Math.max(this.currentXp() - 800000, 0);
             },
             currentMissingXp() {
                 return Math.max(800000 - this.currentXp(), 0);
@@ -161,22 +209,17 @@ document.addEventListener('alpine:init', () => {
                 return Math.max(2000000 - this.currentXp(), 0);
             },
             currentPercent() {
-                return (Math.min(this.currentCompletedTier(), 80) / 80) * 100;
+                return Math.min(this.currentXp() / 800000, 1) * 100;
             },
             currentPercentBar() {
-                return (Math.min(this.currentCompletedTier(), 80) / 200) * 100;
+                let current = Math.min(this.currentXp(), 800000);
+                return Math.min(current / 2000000, 1) * 100;
             },
             currentPrestigePercent() {
-                if (this.currentCompletedTier() < 80) return 0;
-                if (this.currentCompletedTier() >= 200) return 100;
-                if (this.currentCompletedTier() === 199 && this.currentXp() >= 10000) return 100;
-                return ((this.currentCompletedTier() - 80) / 120) * 100;
+                return Math.min((this.currentXp() - 800000) / 1200000, 1) * 100;
             },
             currentPrestigePercentBar() {
-                if (this.currentCompletedTier() < 80) return 0;
-                if (this.currentCompletedTier() >= 200) return 100;
-                if (this.currentCompletedTier() === 199 && this.currentXp() >= 10000) return 100;
-                return ((this.currentCompletedTier() - 80) / 200) * 100;
+                return Math.min((this.currentXp() - 800000) / 2000000, 1) * 100;
             },
 
             //remaining

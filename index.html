@@ -122,6 +122,14 @@
                     Congratulations, you've completed the battle pass!
                 </span>
             </li>
+            <li x-show="currentCompletedTier() >= 80 && currentCompletedTier() < 200">
+                <span title="Your current prestige progress">
+                    Prestige progress:
+                    <span class="prestige" x-text="currentCompletedPrestigeTier()+' tiers'">0 tiers</span>,
+                    <span class="prestige" x-text="currentPrestigeXp().$localize()+' XP'">0 XP</span>,
+                    <span class="prestige" x-text="currentPrestigePercent().$round(1)+'%'">0%</span>
+                </span>
+            </li>
             <li x-show="remainingPrestigeTiers() > 0">
                 <span title="Your remaining effort to max prestige">
                     Remaining for prestige:
@@ -211,12 +219,17 @@
                 <span class="highlight" x-text="projectedWeeklyXp().$round().$localize()+' XP'">0 XP</span>,
                 <span class="highlight" x-text="projectedWeeklyPercent().$round(1)+'%'">0%</span>
             </li>
-            <li x-show="projectedWillFinish()" title="How many tiers you would earn">
+            <li x-show="projectedWillFinish() && remainingTiers() > 0" title="How many tiers you would earn">
                 Tiers earned: <span class="highlight" x-text="projectedTiers().$floor()+' tiers'">0 tiers</span>
             </li>
-            <li x-show="projectedWillFinish()" title="When you would finish">
+            <li x-show="projectedWillFinish() && remainingTiers() > 0" title="When you would finish">
                 Finished in: <span class="highlight" x-text="projectedDays().$ceil()+' more days'">0 more days</span>
                 with <span class="highlight" x-text="projectedSpareDays().$floor()+' days'">0 days</span> to spare
+            </li>
+            <li x-show="remainingTiers() <= 0">
+                <span class="highlight" title="Finished!">
+                    Congratulations, you've completed the battle pass!
+                </span>
             </li>
             <li x-show="projectedWillPrestige() && !projectedWillFinishPrestige()" title="What prestige you would earn">
                 Prestige earned:
@@ -276,12 +289,17 @@
                 <span class="highlight" x-text="expectedWeeklyXp().$round().$localize()+' XP'">0 XP</span>,
                 <span class="highlight" x-text="expectedWeeklyPercent().$round(1)+'%'">0%</span>
             </li>
-            <li x-show="expectedWillFinish()" title="How many tiers you would earn">
+            <li x-show="expectedWillFinish() && remainingTiers() > 0" title="How many tiers you would earn">
                 Tiers earned: <span class="highlight" x-text="expectedTiers().$round(1)+' tiers'">0 tiers</span>
             </li>
-            <li x-show="expectedWillFinish()" title="When you would finish">
+            <li x-show="expectedWillFinish() && remainingTiers() > 0" title="When you would finish">
                 Finished in: <span class="highlight" x-text="expectedDays().$ceil()+' more days'">0 more days</span>
                 with <span class="highlight" x-text="expectedSpareDays().$floor()+' days'">0 days</span> to spare
+            </li>
+            <li x-show="remainingTiers() <= 0">
+                <span class="highlight" title="Finished!">
+                    Congratulations, you've completed the battle pass!
+                </span>
             </li>
             <li x-show="expectedWillPrestige() && !expectedWillFinishPrestige()" title="What prestige you would earn">
                 Prestige earned:
