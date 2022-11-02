@@ -453,7 +453,7 @@ document.addEventListener('alpine:init', () => {
                 return this.expectedTiers() >= 80;
             },
             expectedDays() {
-                return Math.max((this.currentMissingXp() / this.expectedDailyXp()) - this.currentDay(), 0);
+                return Math.max(this.currentMissingXp() / this.expectedDailyXp(), 0);
             },
             expectedSpareDays() {
                 return 63 - (this.currentDay() + this.expectedDays());
