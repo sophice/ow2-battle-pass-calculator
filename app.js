@@ -93,23 +93,23 @@ document.addEventListener('alpine:init', () => {
             //season
             seasonStart() {
                 //TODO: delete this, it's for testing
-                return new Date(new Date().setDate(new Date().getDate() - 30));
+                //return new Date(new Date().setDate(new Date().getDate() - 30));
 
                 //season 1
                 //return new Date('2022-10-04');
 
                 //season 2
-                //return new Date('2022-12-06');
+                return new Date('2022-12-06');
             },
             seasonEnd() {
                 //TODO: delete this, it's for testing
-                return new Date(new Date().setDate(new Date().getDate() + 30));
+                //return new Date(new Date().setDate(new Date().getDate() + 30));
 
                 //season 1
                 //return new Date('2022-12-06');
 
                 //season 2
-                //return new Date('2023-02-07')
+                return new Date('2023-02-07')
             },
             daysLeft() {
                 return (this.seasonEnd() - new Date()) / 86400000;
