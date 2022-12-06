@@ -426,7 +426,7 @@ document.addEventListener('alpine:init', () => {
                 return Math.max(this.currentMissingXp() / this.expectedDailyXp(), 0);
             },
             expectedSpareDays() {
-                return 63 - (this.daysPlayed() + this.expectedDays());
+                return 63 - (this.currentDay() + this.expectedDays());
             },
             expectedTiers() {
                 let expecting = this.currentXp() + this.expectedXp();
