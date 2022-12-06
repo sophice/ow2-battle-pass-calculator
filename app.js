@@ -1,102 +1,16 @@
-if (!Number.prototype.$floor) {
-    Number.prototype.$floor = function (decimals) {
-        if (typeof decimals === 'undefined') {
-            decimals = 0;
-        }
-        return Math.floor(
-            this * Math.pow(10, decimals)
-        ) / Math.pow(10, decimals);
-    };
-}
-
-if (!Number.prototype.$ceil) {
-    Number.prototype.$ceil = function (decimals) {
-        if (typeof decimals === 'undefined') {
-            decimals = 0;
-        }
-        return Math.ceil(
-            this * Math.pow(10, decimals)
-        ) / Math.pow(10, decimals);
-    };
-}
-
-if (!Number.prototype.$round) {
-    Number.prototype.$round = function (decimals) {
-        if (typeof decimals === 'undefined') {
-            decimals = 0;
-        }
-        return Math.round(
-            this * Math.pow(10, decimals)
-        ) / Math.pow(10, decimals);
-    };
-}
-
-if (!Number.prototype.$localize) {
-    Number.prototype.$localize = function (decimals) {
-        let options = {};
-        if (typeof decimals !== 'undefined') {
-            options.maximumFractionDigits = decimals;
-        }
-        return new Intl.NumberFormat(undefined, options).format(this);
-    };
-}
-
-if (!Number.prototype.$currency) {
-    Number.prototype.$currency = function (decimals) {
-        let options = {};
-        if (typeof decimals === 'undefined') {
-            decimals = 2;
-        }
-        options.maximumFractionDigits = decimals;
-        return new Intl.NumberFormat(undefined, options).format(this);
-    };
-}
-
-if (!Number.prototype.$min) {
-    Number.prototype.$min = function (limit) {
-        if (limit < this) return limit;
-        return this;
-    };
-}
-
-if (!Number.prototype.$max) {
-    Number.prototype.$max = function (limit) {
-        if (limit > this) return limit;
-        return this;
-    };
-}
-
-if (!Number.prototype.$highest) {
-    Number.prototype.$highest = function (limit) {
-        return this.$min(limit);
-    };
-}
-
-if (!Number.prototype.$lowest) {
-    Number.prototype.$lowest = function (limit) {
-        return this.$max(limit);
-    };
-}
-
-if (!Number.prototype.$limit) {
-    Number.prototype.$limit = function (minimum, maximum) {
-        if (minimum !== null && this < minimum) return minimum;
-        if (maximum !== null && this > maximum) return maximum;
-        return this;
-    };
-}
-
 document.addEventListener('alpine:init', () => {
     Alpine.data('app', function () {
         return {
             //inputs
             current_tier: this.$persist(1),
             current_tier_xp: this.$persist(0),
+            days_missed: this.$persist(0),
             expected_play_days: this.$persist(5),
             expected_dailies: this.$persist(3),
             expected_daily_matches: this.$persist(5),
             expected_match_xp: this.$persist(500),
             expected_weeklies: this.$persist(8),
+            days_to_be_missed: this.$persist(0),
             tab: this.$persist('all'),
 
             init() {
@@ -115,13 +29,13 @@ document.addEventListener('alpine:init', () => {
             //buttons
             share() {
                 const params = new URLSearchParams();
-                params.set('t', this.currentTier());
-                params.set('x', this.currentTierXp());
-                params.set('p', this.expectedPlayDays());
-                params.set('d', this.expectedDailies());
-                params.set('m', this.expectedDailyMatches());
-                params.set('v', this.expectedMatchXp());
-                params.set('w', this.expectedWeeklies());
+                params.set('t', this.currentTier().toString());
+                params.set('x', this.currentTierXp().toString());
+                params.set('p', this.expectedPlayDays().toString());
+                params.set('d', this.expectedDailies().toString());
+                params.set('m', this.expectedDailyMatches().toString());
+                params.set('v', this.expectedMatchXp().toString());
+                params.set('w', this.expectedWeeklies().toString());
                 let link = window.location.toString();
                 link = link.substring(0, link.length - window.location.hash.length);
                 link = link + '#' + params;
@@ -156,18 +70,35 @@ document.addEventListener('alpine:init', () => {
 
             //season
             seasonStart() {
+                //TODO: delete this, it's for testing
                 return new Date('2022-10-04');
+
+                //season 1
+                //return new Date('2022-10-04');
+
+                //season 2
+                //return new Date('2022-12-06');
             },
             seasonEnd() {
-                return new Date('2022-12-06');
+                //season 1
+                //return new Date('2022-12-06');
+
+                //season 2
+                return new Date('2023-02-07')
             },
             daysLeft() {
                 return (this.seasonEnd() - new Date()) / 86400000;
+            },
+            daysMissed() {
+                return parseInt(this.days_missed || 0);
             },
 
             //current progress
             currentDay() {
                 return (new Date() - this.seasonStart()) / 86400000;
+            },
+            daysPlayed() {
+                return (this.currentDay() - this.daysMissed()).$max(0);
             },
             currentTier() {
                 let result = parseInt(this.current_tier || 0);
@@ -225,6 +156,9 @@ document.addEventListener('alpine:init', () => {
             //remaining
             remainingDays() {
                 return Math.max((this.seasonEnd() - new Date()) / 86400000, 0);
+            },
+            daysToBeMissed() {
+                return parseInt(this.days_to_be_missed || 0);
             },
             remainingTiers() {
                 return 80 - this.currentCompletedTier();
@@ -292,13 +226,13 @@ document.addEventListener('alpine:init', () => {
 
             //projected daily earn rate
             projectedDailyTiers() {
-                return this.currentCompletedTier() / this.currentDay();
+                return this.currentCompletedTier() / this.daysPlayed();
             },
             projectedDailyXp() {
-                return this.currentXp() / this.currentDay();
+                return this.currentXp() / this.daysPlayed();
             },
             projectedDailyPercent() {
-                return this.currentPercent() / this.currentDay();
+                return this.currentPercent() / this.daysPlayed();
             },
 
             //projected weekly earn rate
@@ -320,12 +254,12 @@ document.addEventListener('alpine:init', () => {
                 return this.projectedDailyXp() * this.remainingDays();
             },
             projectedDays() {
-                let result = (800000 / this.projectedDailyXp()) - this.currentDay();
+                let result = (800000 / this.projectedDailyXp()) - this.daysPlayed();
                 if (result < 0) return 0;
                 return result;
             },
             projectedSpareDays() {
-                return 63 - (this.currentDay() + this.projectedDays());
+                return 63 - (this.daysPlayed() + this.projectedDays());
             },
             projectedTiers() {
                 let expecting = this.currentXp() + (this.projectedDailyXp() * this.remainingDays());
@@ -355,7 +289,7 @@ document.addEventListener('alpine:init', () => {
                 return this.projectedPrestigeTiers() >= 120;
             },
             projectedPrestigeDays() {
-                return (63 - this.projectedPrestigeSpareDays()) - this.currentDay();
+                return (63 - this.projectedPrestigeSpareDays()) - this.daysPlayed();
             },
             projectedPrestigeSpareDays() {
                 let extra = this.projectedXp() - (2000000 - this.currentXp());
@@ -456,7 +390,7 @@ document.addEventListener('alpine:init', () => {
                 return Math.max(this.currentMissingXp() / this.expectedDailyXp(), 0);
             },
             expectedSpareDays() {
-                return 63 - (this.currentDay() + this.expectedDays());
+                return 63 - (this.daysPlayed() + this.expectedDays());
             },
             expectedTiers() {
                 let expecting = this.currentXp() + this.expectedXp();
@@ -486,7 +420,7 @@ document.addEventListener('alpine:init', () => {
                 return this.expectedPrestigeTiers() >= 120;
             },
             expectedPrestigeDays() {
-                return (63 - this.expectedPrestigeSpareDays()) - this.currentDay();
+                return (63 - this.expectedPrestigeSpareDays()) - this.daysPlayed();
             },
             expectedPrestigeSpareDays() {
                 let extra = this.expectedXp() - (2000000 - this.currentXp());

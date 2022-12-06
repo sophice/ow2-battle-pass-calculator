@@ -43,6 +43,7 @@
 
     <div class="form">
         <form>
+            <h2>Past Progress</h2>
             <p title="The current tier you are working on">
                 <label for="current_tier">Current tier</label>
                 <input id="current_tier" type="text" x-model="current_tier" inputmode="numeric"/> (max 200)
@@ -50,6 +51,15 @@
             <p title="How much XP you have already earned towards the current tier">
                 <label for="current_tier_xp">XP in current tier</label>
                 <input id="current_tier_xp" type="text" x-model="current_tier_xp" inputmode="numeric"/>
+            </p>
+            <p title="How many days you've missed so far, either from a late start in the season, vacation time, etc...">
+                <label for="days_missed">Days missed</label>
+                <input id="days_missed" type="text" x-model="days_missed" inputmode="numeric"/>
+            </p>
+            <h2>Future Plans</h2>
+            <p title="How many weekly challenges you will complete each week">
+                <label for="expected_weeklies">Weeklies per week</label>
+                <input id="expected_weeklies" type="text" x-model="expected_weeklies" inputmode="numeric"/> (max 11)
             </p>
             <p title="How many days you will play each week">
                 <label for="expected_play_days">Days played per week</label>
@@ -67,9 +77,9 @@
                 <label for="expected_match_xp">Average match XP</label>
                 <input id="expected_match_xp" type="text" x-model="expected_match_xp" inputmode="numeric"/>
             </p>
-            <p title="How many weekly challenges you will complete each week">
-                <label for="expected_weeklies">Weeklies per week</label>
-                <input id="expected_weeklies" type="text" x-model="expected_weeklies" inputmode="numeric"/> (max 11)
+            <p title="How many days you plan to miss, due to vacation time, work, etc...">
+                <label for="days_to_be_missed">Days you will miss</label>
+                <input id="days_to_be_missed" type="text" x-model="days_to_be_missed" inputmode="numeric"/>
             </p>
             <br/>
             <button type="button" class="highlight" @click="share()">Share</button>
@@ -376,6 +386,7 @@
 
 </div>
 
+<script src="./prototypes.js?rev=8"></script>
 <script src="./app.js?rev=8"></script>
 
 </body>
