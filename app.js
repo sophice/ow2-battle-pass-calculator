@@ -1,54 +1,76 @@
 document.addEventListener('alpine:init', () => {
     Alpine.data('app', function () {
         return {
-            //inputs
+            //past progress
             current_tier: this.$persist(1),
             current_tier_xp: this.$persist(0),
             days_missed: this.$persist(0),
+
+            //future plans
+            expected_weeklies: this.$persist(8),
             expected_play_days: this.$persist(5),
             expected_dailies: this.$persist(3),
             expected_daily_matches: this.$persist(5),
             expected_match_xp: this.$persist(500),
-            expected_weeklies: this.$persist(8),
             days_to_be_missed: this.$persist(0),
+
+            //ui
             tab: this.$persist('all'),
 
             init() {
                 if (window.location.hash) {
                     const params = new URLSearchParams(window.location.hash.substring(1));
+
+                    //past progress
                     if (params.has('t')) this.current_tier = params.get('t');
                     if (params.has('x')) this.current_tier_xp = params.get('x');
+                    if (params.has('s')) this.days_missed = params.get('s');
+
+                    //future plans
+                    if (params.has('w')) this.expected_weeklies = params.get('w');
                     if (params.has('p')) this.expected_play_days = params.get('p');
                     if (params.has('d')) this.expected_dailies = params.get('d');
                     if (params.has('m')) this.expected_daily_matches = params.get('m');
                     if (params.has('v')) this.expected_match_xp = params.get('v');
-                    if (params.has('w')) this.expected_weeklies = params.get('w');
+                    if (params.has('e')) this.days_to_be_missed = params.get('e');
                 }
             },
 
             //buttons
             share() {
                 const params = new URLSearchParams();
+
+                //past progress
                 params.set('t', this.currentTier().toString());
                 params.set('x', this.currentTierXp().toString());
+                params.set('s', this.daysMissed().toString());
+
+                //future plans
+                params.set('w', this.expectedWeeklies().toString());
                 params.set('p', this.expectedPlayDays().toString());
                 params.set('d', this.expectedDailies().toString());
                 params.set('m', this.expectedDailyMatches().toString());
                 params.set('v', this.expectedMatchXp().toString());
-                params.set('w', this.expectedWeeklies().toString());
+                params.set('e', this.daysToBeMissed().toString());
+
                 let link = window.location.toString();
                 link = link.substring(0, link.length - window.location.hash.length);
                 link = link + '#' + params;
                 window.prompt('Here is your link!', link);
             },
             reset() {
+                //past progress
                 this.current_tier = 1;
                 this.current_tier_xp = 0;
+                this.days_missed = 0;
+
+                //future plans
                 this.expected_weeklies = 8;
                 this.expected_play_days = 5;
                 this.expected_dailies = 3;
                 this.expected_daily_matches = 5;
                 this.expected_match_xp = 500;
+                this.days_to_be_missed = 0;
             },
 
             //tabs
@@ -71,7 +93,7 @@ document.addEventListener('alpine:init', () => {
             //season
             seasonStart() {
                 //TODO: delete this, it's for testing
-                return new Date('2022-10-04');
+                return new Date(new Date().setDate(new Date().getDate() - 30));
 
                 //season 1
                 //return new Date('2022-10-04');
@@ -80,11 +102,14 @@ document.addEventListener('alpine:init', () => {
                 //return new Date('2022-12-06');
             },
             seasonEnd() {
+                //TODO: delete this, it's for testing
+                return new Date(new Date().setDate(new Date().getDate() + 30));
+
                 //season 1
                 //return new Date('2022-12-06');
 
                 //season 2
-                return new Date('2023-02-07')
+                //return new Date('2023-02-07')
             },
             daysLeft() {
                 return (this.seasonEnd() - new Date()) / 86400000;
