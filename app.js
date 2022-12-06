@@ -249,6 +249,17 @@ document.addEventListener('alpine:init', () => {
                 return this.minimumDailyPrestigePercent() * 7;
             },
 
+            //projected missed
+            projectedTiersMissed() {
+                return this.projectedDailyTiers() * this.daysMissed();
+            },
+            projectedXpMissed() {
+                return this.projectedDailyXp() * this.daysMissed();
+            },
+            projectedPercentMissed() {
+                return this.projectedDailyPercent() * this.daysMissed();
+            },
+
             //projected daily earn rate
             projectedDailyTiers() {
                 return this.currentCompletedTier() / this.daysPlayed();

@@ -217,6 +217,9 @@
                   title="Prestige completion"></span>
         </div>
         <ul>
+            <li x-show="projectedWillFinish() && remainingTiers() > 0" title="How many tiers you would earn">
+                Tiers earned: <span class="highlight" x-text="projectedTiers().$floor()+' tiers'">0 tiers</span>
+            </li>
             <li title="Your daily pace up to now">
                 Daily pace:
                 <span class="highlight" x-text="projectedDailyTiers().$round(1)+' tiers'">0 tiers</span>,
@@ -229,8 +232,12 @@
                 <span class="highlight" x-text="projectedWeeklyXp().$round().$localize()+' XP'">0 XP</span>,
                 <span class="highlight" x-text="projectedWeeklyPercent().$round(1)+'%'">0%</span>
             </li>
-            <li x-show="projectedWillFinish() && remainingTiers() > 0" title="How many tiers you would earn">
-                Tiers earned: <span class="highlight" x-text="projectedTiers().$floor()+' tiers'">0 tiers</span>
+            <li x-show="daysMissed() > 0" title="Missed progress">
+                Missed:
+                <span class="highlight" x-text="daysMissed()+' days'">0 days</span>,
+                <span class="highlight" x-text="projectedTiersMissed().$round(1)+' tiers'">0 tiers</span>,
+                <span class="highlight" x-text="projectedXpMissed().$round().$localize()+' XP'">0 XP</span>,
+                <span class="highlight" x-text="projectedPercentMissed().$round(1)+'%'">0%</span>
             </li>
             <li x-show="projectedWillFinish() && remainingTiers() > 0" title="When you would finish">
                 Finished in: <span class="highlight" x-text="projectedDays().$ceil()+' more days'">0 more days</span>
