@@ -99,7 +99,13 @@ document.addEventListener('alpine:init', () => {
                 //return new Date('2022-10-04');
 
                 //season 2
-                return new Date('2022-12-06');
+                //return new Date('2022-12-06');
+
+                //Season 3
+                return new Date('2023-02-07');
+
+                //Season 4
+                //return new Date('2023-04-11');
             },
             seasonEnd() {
                 //TODO: delete this, it's for testing
@@ -109,7 +115,13 @@ document.addEventListener('alpine:init', () => {
                 //return new Date('2022-12-06');
 
                 //season 2
-                return new Date('2023-02-07')
+                //return new Date('2023-02-07')
+
+                //Season 3
+                return new Date('2023-04-11')
+
+                //Season 4
+                //return new Date('2023-06-13')
             },
             daysLeft() {
                 return (this.seasonEnd() - new Date()) / 86400000;
