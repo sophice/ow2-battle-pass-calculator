@@ -107,7 +107,7 @@ document.addEventListener('alpine:init', () => {
             seasonEnd() {
                 return this.season.seasonEnd;
             },
-            printSeasonStart() {
+            printSeasonEnd() {
                 return this.seasonEnd().toLocaleDateString("en-US", {
                     month: "long",
                     day: "numeric",
