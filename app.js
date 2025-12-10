@@ -14,14 +14,12 @@ document.addEventListener('alpine:init', () => {
             expected_match_xp: this.$persist(500),
             days_to_be_missed: this.$persist(0),
             // default values
-            season: { season: 1, seasonStart: new Date('2022-10-04'), seasonEnd: new Date('2022-12-06') },
+            season: { season: 20, seasonStart: new Date('2025-12-09'), seasonEnd: new Date('2026-02-10') },
 
             //ui
             tab: this.$persist('all'),
 
             init() {
-                // get current season and display it
-                this.season = this.getSeason(new Date('2022-10-04'));
                 document.getElementById('season_title').innerText = 'Season ' + this.season.season;
                 if (window.location.hash) {
                     const params = new URLSearchParams(window.location.hash.substring(1));
@@ -96,29 +94,6 @@ document.addEventListener('alpine:init', () => {
             },
 
             //season
-            /**
-             *
-             * @param {Date} startDate default is 2022-10-04
-             * @param {Date} today default is today, overwrite for testing
-             * @returns {Object} {season: number, seasonStart: Date, seasonEnd: Date}
-             */
-            getSeason(startDate = new Date('2022-10-04'), today = new Date()) {
-                const oneWeek = 7 * 24 * 60 * 60 * 1000;
-                // Calculate season duration in milliseconds
-                const seasonDuration = 9 * oneWeek;
-                // Calculate the difference between start date and today
-                const diff = today - startDate;
-                // Get the season number
-                const season = Math.floor(diff / seasonDuration) + 1;
-
-                // Get the start date of the season
-                const seasonStart = new Date(startDate.getTime() + seasonDuration * (season - 1));
-                // Get the end date of the season
-                const seasonEnd = new Date(seasonStart.getTime() + seasonDuration - 1);
-
-                // Return season number, start and end dates
-                return { season, seasonStart, seasonEnd };
-            },
             seasonStart() {
                 return this.season.seasonStart;
             },
