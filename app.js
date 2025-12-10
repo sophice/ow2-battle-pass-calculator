@@ -29,6 +29,11 @@ document.addEventListener('alpine:init', () => {
                 if (window.location.hash) {
                     const params = new URLSearchParams(window.location.hash.substring(1));
 
+                    //season
+                    if (params.has('sn')) this.season_number = params.get('sn');
+                    if (params.has('ss')) this.season_start = params.get('ss');
+                    if (params.has('se')) this.season_end = params.get('se');
+
                     //past progress
                     if (params.has('t')) this.current_tier = params.get('t');
                     if (params.has('x')) this.current_tier_xp = params.get('x');
@@ -47,6 +52,11 @@ document.addEventListener('alpine:init', () => {
             //buttons
             share() {
                 const params = new URLSearchParams();
+
+                //season
+                params.set('sn', this.season_number.toString());
+                params.set('ss', this.season_start);
+                params.set('se', this.season_end);
 
                 //past progress
                 params.set('t', this.currentTier().toString());
@@ -67,6 +77,11 @@ document.addEventListener('alpine:init', () => {
                 window.prompt('Here is your link!', link);
             },
             reset() {
+                //season
+                this.season_number = 20;
+                this.season_start = '2025-12-09';
+                this.season_end = '2026-02-10';
+
                 //past progress
                 this.current_tier = 1;
                 this.current_tier_xp = 0;
