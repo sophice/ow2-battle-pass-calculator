@@ -97,8 +97,22 @@ document.addEventListener('alpine:init', () => {
             seasonStart() {
                 return this.season.seasonStart;
             },
+            printSeasonStart() {
+                return this.seasonStart().toLocaleDateString("en-US", {
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric"
+                });
+            },
             seasonEnd() {
                 return this.season.seasonEnd;
+            },
+            printSeasonStart() {
+                return this.seasonEnd().toLocaleDateString("en-US", {
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric"
+                });
             },
             daysLeft() {
                 return (this.seasonEnd() - new Date()) / 86400000;
