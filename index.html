@@ -39,15 +39,29 @@
         Battle Pass Calculator
     </h1>
 
-    <h2 id="season_title">Season 20</h2>
+    <h2 id="season_title">Season <span x-text="season_number">20</span></h2>
     <div class="section">
-        <span x-text="printSeasonStart()"></span> to <span x-text="printSeasonEnd()"></span><br/>
-        <span x-text="Math.ceil(daysLeft())"></span> days left.<br/><br/>
+        Runs <span x-text="printSeasonStart()">December 9, 2025</span> - <span x-text="printSeasonEnd()">February 10, 2026</span><br/>
+        <span x-text="Math.ceil(daysLeft())">63</span> days left<br/><br/>
     </div>
 
     <div class="form">
         <form>
-            <h2>Past Progress</h2>
+            <h2>Season</h2>
+            <p title="Number">
+                <label for="season_number">Number</label>
+                <input id="season_number" type="text" x-model="season_number" inputmode="numeric"/>
+            </p>
+            <p title="Start">
+                <label for="season_start">Start</label>
+                <input id="season_start" type="date" x-model="season_start"/>
+            </p>
+            <p title="End">
+                <label for="season_end">End</label>
+                <input id="season_end" type="date" x-model="season_end"/>
+            </p>
+
+            <h2>Start</h2>
             <p title="The current tier you are working on">
                 <label for="current_tier">Current tier</label>
                 <input id="current_tier" type="text" x-model="current_tier" inputmode="numeric"/> (max 200)

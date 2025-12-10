@@ -1,6 +1,11 @@
 document.addEventListener('alpine:init', () => {
     Alpine.data('app', function () {
         return {
+            //season
+            season_number: 20,
+            season_start: '2025-12-09',
+            season_end: '2026-02-10',
+
             //past progress
             current_tier: this.$persist(1),
             current_tier_xp: this.$persist(0),
@@ -20,7 +25,7 @@ document.addEventListener('alpine:init', () => {
             tab: this.$persist('all'),
 
             init() {
-                document.getElementById('season_title').innerText = 'Season ' + this.season.season;
+                //document.getElementById('season_title').innerText = 'Season ' + this.season_number;
                 if (window.location.hash) {
                     const params = new URLSearchParams(window.location.hash.substring(1));
 
@@ -95,23 +100,25 @@ document.addEventListener('alpine:init', () => {
 
             //season
             seasonStart() {
-                return this.season.seasonStart;
+                return new Date(this.season_start);
             },
             printSeasonStart() {
-                return this.seasonStart().toLocaleDateString("en-US", {
+                return new Date(this.season_start + 'T12:00:00-08:00').toLocaleDateString("en-US", {
                     month: "long",
                     day: "numeric",
-                    year: "numeric"
+                    year: "numeric",
+                    timeZone: 'America/Los_Angeles'
                 });
             },
             seasonEnd() {
-                return this.season.seasonEnd;
+                return new Date(this.season_end);
             },
             printSeasonEnd() {
-                return this.seasonEnd().toLocaleDateString("en-US", {
+                return new Date(this.season_end + 'T12:00:00-08:00').toLocaleDateString("en-US", {
                     month: "long",
                     day: "numeric",
-                    year: "numeric"
+                    year: "numeric",
+                    timeZone: 'America/Los_Angeles'
                 });
             },
             daysLeft() {
