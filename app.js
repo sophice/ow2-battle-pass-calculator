@@ -2,9 +2,9 @@ document.addEventListener('alpine:init', () => {
     Alpine.data('app', function () {
         return {
             //season
-            season_number: 20,
-            season_start: '2025-12-09',
-            season_end: '2026-02-10',
+            season_number: this.$persist(20),
+            season_start: this.$persist('2025-12-09'),
+            season_end: this.$persist('2026-02-10'),
 
             //past progress
             current_tier: this.$persist(1),
@@ -18,6 +18,7 @@ document.addEventListener('alpine:init', () => {
             expected_daily_matches: this.$persist(5),
             expected_match_xp: this.$persist(500),
             days_to_be_missed: this.$persist(0),
+            
             // default values
             season: { season: 20, seasonStart: new Date('2025-12-09'), seasonEnd: new Date('2026-02-10') },
 
